@@ -1,0 +1,173 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  STUDENT
+  STAFF
+  ADMIN
+  SECURITY
+}
+
+enum ReportStatus {
+  OPEN
+  INVESTIGATING
+  RESOLVED
+  DISMISSED
+}
+
+enum ReportPriority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum ReportType {
+  PHISHING
+  MALWARE
+  HARASSMENT
+  DATA_LEAK
+  OTHER
+}
+
+model User {
+  id                  String    @id @default(uuid())
+  email               String    @unique
+  passwordHash        String
+  hashedRefreshToken  String?
+  role                UserRole  @default(STUDENT)
+  isLocked            Boolean   @default(false)
+  failedLoginAttempts Int       @default(0)
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+
+  auditLogs           AuditLog[]
+  reports             Report[]
+  comments            Comment[]
+  votes               Vote[]
+  notifications       Notification[]
+  chatMessages        ChatMessage[]
+
+  @@map("users")
+}
+
+model Report {
+  id          String         @id @default(uuid())
+  title       String
+  description String
+  type        ReportType
+  status      ReportStatus   @default(OPEN)
+  priority    ReportPriority @default(LOW)
+  isAnonymous Boolean        @default(false)
+  
+  authorId    String?
+  author      User?          @relation(fields: [authorId], references: [id])
+  
+  evidence    Evidence[]
+  comments    Comment[]
+  votes       Vote[]
+  
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  @@index([status])
+  @@index([priority])
+  @@index([createdAt])
+  @@map("reports")
+}
+
+model Evidence {
+  id        String   @id @default(uuid())
+  reportId  String
+  report    Report   @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  
+  fileUrl   String
+  fileType  String
+  fileSize  Int
+  
+  uploadedAt DateTime @default(now())
+
+  @@map("evidence")
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  content   String
+  
+  reportId  String
+  report    Report   @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("comments")
+}
+
+model Vote {
+  id        String   @id @default(uuid())
+  value     Int      // 1 for upvote, -1 for downvote (if needed, or just 1 for like)
+  
+  reportId  String
+  report    Report   @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  
+  createdAt DateTime @default(now())
+
+  @@unique([reportId, userId]) // One vote per user per report
+  @@map("votes")
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  title     String
+  message   String
+  isRead    Boolean  @default(false)
+  
+  createdAt DateTime @default(now())
+
+  @@index([userId, isRead])
+  @@map("notifications")
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String?
+  action    String
+  details   String?
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  user      User?    @relation(fields: [userId], references: [id])
+
+  @@map("audit_logs")
+}
+
+model ChatMessage {
+  id        String   @id @default(uuid())
+  userId    String
+  role      UserRole
+  query     String
+  response  String   @db.Text
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([createdAt])
+  @@map("chat_messages")
+}

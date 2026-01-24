@@ -1,0 +1,41 @@
+# Dependency directories
+node_modules/
+dist/
+build/
+.next/
+out/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+secrets/
+
+# OS/Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary files
+~$*
+*.tmp
+
+# App specific
+backend/dist/
+backend/node_modules/
+backend/.env
+backend/secrets/
+frontend/dist/
+frontend/node_modules/
+frontend/.env
+
+# Prisma
+backend/prisma/*.db
+backend/prisma/*.db-journal
+
+# Uploads
+backend/uploads/*
+!backend/uploads/.gitkeep
