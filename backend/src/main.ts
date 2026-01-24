@@ -32,10 +32,16 @@ async function bootstrap() {
   // Request Size Limits (default is 100kb in NestJS/Express, but we can be explicit if needed)
   // app.use(json({ limit: '100kb' })); // Already default
 
-  // Enable CORS - support multiple frontend ports during development
+  // Enable CORS - production uses FRONTEND_URL env var, dev uses localhost
+  const allowedOrigins = process.env.FRONTEND_URL
+    ? [process.env.FRONTEND_URL]
+    : ['http://localhost:5173', 'http://localhost:5174'];
+
   app.enableCors({
-    origin: process.env.FRONTEND_URL || ['http://localhost:5173', 'http://localhost:5174'],
+    origin: allowedOrigins,
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   });
 
   await app.listen(process.env.PORT ?? 3000);

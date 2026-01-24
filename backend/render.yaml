@@ -1,0 +1,17 @@
+# Render.com Build Configuration for Backend
+
+# Build Command
+build:
+  - npm ci
+  - npx prisma generate
+  - npm run build
+
+# Start Command
+start: npm run start:prod
+
+# Environment Variables (set these in Render Dashboard, NOT here)
+# DATABASE_URL - from Render PostgreSQL
+# JWT_PRIVATE_KEY - your RSA private key
+# JWT_PUBLIC_KEY - your RSA public key
+# FRONTEND_URL - your frontend URL for CORS
+# NODE_ENV - production

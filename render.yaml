@@ -1,0 +1,67 @@
+# Render.com Blueprint - V-CTRIP Deployment
+# This file defines the entire infrastructure
+
+services:
+  # ============================================
+  # BACKEND - NestJS API
+  # ============================================
+  - type: web
+    name: vctrip-api
+    runtime: node
+    region: frankfurt  # EU region
+    plan: free
+    rootDir: backend
+    buildCommand: npm ci && npx prisma generate && npm run build
+    startCommand: npm run start:prod
+    healthCheckPath: /api/v1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: DATABASE_URL
+        fromDatabase:
+          name: vctrip-db
+          property: connectionString
+      - key: JWT_PRIVATE_KEY
+        sync: false  # Set manually in dashboard (secret)
+      - key: JWT_PUBLIC_KEY
+        sync: false  # Set manually in dashboard (secret)
+      - key: FRONTEND_URL
+        sync: false  # Set after frontend deploys
+
+  # ============================================
+  # FRONTEND - React Static Site
+  # ============================================
+  - type: web
+    name: vctrip-web
+    runtime: static
+    region: frankfurt
+    plan: free
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        sync: false  # Set after backend deploys
+
+# ============================================
+# DATABASE - PostgreSQL
+# ============================================
+databases:
+  - name: vctrip-db
+    region: frankfurt
+    plan: free
+    databaseName: vctrip
+    user: vctrip_user
