@@ -9,8 +9,21 @@ import { AuditService } from '../audit/audit.service';
 import * as fs from 'fs';
 import * as path from 'path';
 
-const privateKey = fs.readFileSync(path.join(process.cwd(), 'secrets', 'private.key'));
-const publicKey = fs.readFileSync(path.join(process.cwd(), 'secrets', 'public.key'));
+// Load RSA keys from environment variables if available (for Vercel), otherwise from files (for local)
+let privateKey: string | Buffer;
+let publicKey: string | Buffer;
+
+try {
+    privateKey = process.env.JWT_PRIVATE_KEY
+        ? process.env.JWT_PRIVATE_KEY.replace(/\\n/g, '\n')
+        : fs.readFileSync(path.join(process.cwd(), 'secrets', 'private.key'));
+
+    publicKey = process.env.JWT_PUBLIC_KEY
+        ? process.env.JWT_PUBLIC_KEY.replace(/\\n/g, '\n')
+        : fs.readFileSync(path.join(process.cwd(), 'secrets', 'public.key'));
+} catch (error) {
+    console.error('Warning: Failed to load RSA keys. Security endpoints will fail.', error);
+}
 
 @Module({
     imports: [
