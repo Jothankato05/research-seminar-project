@@ -7,12 +7,10 @@ services:
   # ============================================
   - type: web
     name: vctrip-api
-    env: Docker
-    region: frankfurt  # EU region
+    runtime: docker
+    region: frankfurt
     plan: free
     rootDir: backend
-    buildCommand: npm ci && npx prisma generate && npm run build
-    startCommand: npm run start:prod
     healthCheckPath: /api/v1
     envVars:
       - key: NODE_ENV
@@ -24,18 +22,18 @@ services:
           name: vctrip-db
           property: connectionString
       - key: JWT_PRIVATE_KEY
-        sync: false  # Set manually in dashboard (secret)
+        sync: false
       - key: JWT_PUBLIC_KEY
-        sync: false  # Set manually in dashboard (secret)
+        sync: false
       - key: FRONTEND_URL
-        sync: false  # Set after frontend deploys
+        sync: false
 
   # ============================================
   # FRONTEND - React Static Site
   # ============================================
   - type: web
     name: vctrip-web
-    env: static
+    runtime: static
     rootDir: frontend
     buildCommand: npm ci && npm run build
     staticPublishPath: dist
@@ -52,7 +50,7 @@ services:
         destination: /index.html
     envVars:
       - key: VITE_API_URL
-        sync: false  # Set after backend deploys
+        sync: false
 
 # ============================================
 # DATABASE - PostgreSQL
