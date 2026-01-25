@@ -1,16 +1,16 @@
 # Render.com Blueprint - V-CTRIP Deployment
-# This file defines the entire infrastructure
-
 services:
   # ============================================
-  # BACKEND - NestJS API
+  # BACKEND - NestJS API (Free Tier compatible)
   # ============================================
   - type: web
     name: vctrip-api
-    runtime: docker
+    runtime: node
     region: frankfurt
     plan: free
     rootDir: backend
+    buildCommand: npm install && npx prisma generate && npm run build
+    startCommand: npm run start:prod
     healthCheckPath: /api/v1
     envVars:
       - key: NODE_ENV
@@ -33,17 +33,10 @@ services:
   # ============================================
   - type: web
     name: vctrip-web
-    runtime: static
+    env: static
     rootDir: frontend
-    buildCommand: npm ci && npm run build
+    buildCommand: npm install && npm run build
     staticPublishPath: dist
-    headers:
-      - path: /*
-        name: X-Frame-Options
-        value: DENY
-      - path: /*
-        name: X-Content-Type-Options
-        value: nosniff
     routes:
       - type: rewrite
         source: /*
@@ -53,7 +46,7 @@ services:
         sync: false
 
 # ============================================
-# DATABASE - PostgreSQL
+# DATABASE - PostgreSQL (Free Tier)
 # ============================================
 databases:
   - name: vctrip-db
