@@ -18,7 +18,7 @@ export const MyReports = () => {
         const fetchReports = async () => {
             try {
                 // Fetch only reports submitted by the current user
-                const response = await axios.get('/reports/my?limit=100');
+                const response = await axios.get('reports/my?limit=100');
                 setReports(response.data.data);
             } catch (error) {
                 console.error('Failed to fetch reports', error);

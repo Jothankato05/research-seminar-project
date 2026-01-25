@@ -32,8 +32,8 @@ export const AdminDashboard = () => {
         setIsLoading(true);
         try {
             const [usersRes, logsRes] = await Promise.all([
-                axios.get('/admin/users'),
-                axios.get('/admin/audit-logs'),
+                axios.get('admin/users'),
+                axios.get('admin/audit-logs'),
             ]);
             setUsers(usersRes.data);
             setAuditLogs(logsRes.data);
@@ -50,7 +50,7 @@ export const AdminDashboard = () => {
 
     const toggleLock = async (userId: string) => {
         try {
-            await axios.patch(`/admin/users/${userId}/lock`);
+            await axios.patch(`admin/users/${userId}/lock`);
             // Optimistic update or refetch
             setUsers(users.map(u => u.id === userId ? { ...u, isLocked: !u.isLocked } : u));
         } catch (error) {

@@ -24,7 +24,7 @@ export const IntelligenceDatabase = () => {
         const fetchReports = async () => {
             try {
                 // Fetch only RESOLVED reports
-                const response = await axios.get('/reports?status=RESOLVED&limit=100');
+                const response = await axios.get('reports?status=RESOLVED&limit=100');
                 setReports(response.data.data);
                 setFilteredReports(response.data.data);
             } catch (error) {

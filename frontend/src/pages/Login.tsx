@@ -19,7 +19,7 @@ export const Login = () => {
         setError('');
 
         try {
-            const response = await axios.post('/auth/login', { email, password });
+            const response = await axios.post('auth/login', { email, password });
             const { access_token, refresh_token, user } = response.data;
             login(access_token, refresh_token, user);
             navigate('/');

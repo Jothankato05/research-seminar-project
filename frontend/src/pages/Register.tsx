@@ -26,10 +26,10 @@ export const Register = () => {
 
         try {
             // Register
-            await axios.post('/auth/register', { email, password });
+            await axios.post('auth/register', { email, password });
 
             // Auto login after register
-            const response = await axios.post('/auth/login', { email, password });
+            const response = await axios.post('auth/login', { email, password });
             const { access_token, refresh_token, user } = response.data;
             login(access_token, refresh_token, user);
             navigate('/');

@@ -29,7 +29,7 @@ export const AnalyticsDashboard = () => {
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                const response = await axios.get('/analytics');
+                const response = await axios.get('analytics');
                 setStats(response.data);
             } catch (error) {
                 console.error('Failed to fetch analytics', error);

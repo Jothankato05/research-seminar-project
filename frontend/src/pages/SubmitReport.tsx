@@ -22,7 +22,7 @@ export const SubmitReport = () => {
 
         try {
             // 1. Create Report
-            const reportResponse = await axios.post('/reports', {
+            const reportResponse = await axios.post('reports', {
                 title,
                 description,
                 type,
@@ -36,7 +36,7 @@ export const SubmitReport = () => {
             if (file) {
                 const formData = new FormData();
                 formData.append('file', file);
-                await axios.post(`/reports/${reportId}/evidence`, formData, {
+                await axios.post(`reports/${reportId}/evidence`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
