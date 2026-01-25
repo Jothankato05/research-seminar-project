@@ -7,7 +7,7 @@ services:
   # ============================================
   - type: web
     name: vctrip-api
-    runtime: node
+    env: node
     region: frankfurt  # EU region
     plan: free
     rootDir: backend
@@ -33,9 +33,9 @@ services:
   # ============================================
   # FRONTEND - React Static Site
   # ============================================
-  - type: static_site
+  - type: web
     name: vctrip-web
-    runtime: static
+    env: static
     rootDir: frontend
     buildCommand: npm ci && npm run build
     staticPublishPath: dist
