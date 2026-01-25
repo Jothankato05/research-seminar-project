@@ -8,9 +8,17 @@ import * as path from 'path';
 let publicKey: string | Buffer = '';
 try {
     if (process.env.JWT_PUBLIC_KEY) {
+        console.log('JwtStrategy: Loading JWT_PUBLIC_KEY from environment...');
         publicKey = process.env.JWT_PUBLIC_KEY.replace(/\\n/g, '\n');
     } else {
-        publicKey = fs.readFileSync(path.join(process.cwd(), 'secrets', 'public.key'));
+        const keyPath = path.join(process.cwd(), 'secrets', 'public.key');
+        console.log(`JwtStrategy: Checking for public key at: ${keyPath}`);
+        if (fs.existsSync(keyPath)) {
+            publicKey = fs.readFileSync(keyPath);
+            console.log('JwtStrategy: Loaded public key from filesystem.');
+        } else {
+            console.warn('JwtStrategy: Public key not found in environment or filesystem!');
+        }
     }
 } catch (error) {
     console.error('Warning: Failed to load public key in JwtStrategy.', error);
