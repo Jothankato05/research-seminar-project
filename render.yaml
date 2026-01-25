@@ -7,10 +7,12 @@ services:
   # ============================================
   - type: web
     name: vctrip-api
-    env: docker
-    region: frankfurt
+    env: Docker
+    region: frankfurt  # EU region
     plan: free
     rootDir: backend
+    buildCommand: npm ci && npx prisma generate && npm run build
+    startCommand: npm run start:prod
     healthCheckPath: /api/v1
     envVars:
       - key: NODE_ENV
