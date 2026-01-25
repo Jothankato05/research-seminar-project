@@ -59,9 +59,11 @@ RESEARCH SEMINAR PROJECT/
    ```bash
    cd backend
    npm install
-   # Configure .env file
+   # Configure .env file with your DATABASE_URL
+   # For local PostgreSQL: postgresql://postgres:YOUR_PASSWORD@localhost:5432/vctrip
    npx prisma generate
    npx prisma db push
+   npx ts-node prisma/seed-demo.ts
    npm run start:dev
    ```
 
@@ -72,6 +74,16 @@ RESEARCH SEMINAR PROJECT/
    # Configure .env file
    npm run dev
    ```
+
+## 🚀 Deployment
+
+The project is configured for easy deployment on **Render.com**:
+
+1. **Backend**: Deploy as a *Web Service* using the `backend/Dockerfile` or the Node.js runtime. Ensure you add your `DATABASE_URL`, `JWT_PRIVATE_KEY`, and `JWT_PUBLIC_KEY` as environment variables.
+2. **Frontend**: Deploy as a *Static Site*. Ensure you set `VITE_API_URL` to your backend URL.
+3. **Database**: Use Render's managed PostgreSQL or Supabase.
+
+Refer to `render.yaml` for infrastructure-as-code configuration.
 
 ## 🔒 Security Implementation
 
