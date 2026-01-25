@@ -2,7 +2,8 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
 // Configure axios defaults - use environment variable or fallback
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1';
+// Configure axios defaults - use environment variable or fallback to relative path
+const API_URL = import.meta.env.VITE_API_URL || '/api/v1';
 axios.defaults.baseURL = API_URL;
 
 interface User {
