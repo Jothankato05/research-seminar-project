@@ -26,32 +26,30 @@ export class ChatbotService {
         {
             id: 'account_hacked',
             keywords: ['hacked', 'compromised', 'breach', 'someone accessed', 'unauthorized access', 'account taken', 'hijacked', 'break in', 'broken into'],
-            getResponse: (role, isPrivileged) => isPrivileged
-                ? `🚨 **Account Compromise Response Protocol**\n\n` +
-                `**Immediate Actions:**\n` +
-                `1. **DISABLE** the compromised account in Active Directory\n` +
-                `2. **REVOKE** all active sessions and tokens\n` +
-                `3. **AUDIT** recent login history and IP addresses\n` +
-                `4. **CHECK** for lateral movement to other systems\n` +
-                `5. **PRESERVE** logs for forensic analysis\n\n` +
-                `**Recovery:**\n` +
-                `• Force password reset with complexity requirements\n` +
-                `• Enable MFA before re-enabling account\n` +
-                `• Monitor for 30 days post-incident`
-                : `🔐 **Your Account May Be Compromised - Take Action Now**\n\n` +
-                `1. **CHANGE** your password immediately from a trusted device\n` +
-                `2. **ENABLE** Two-Factor Authentication (2FA)\n` +
-                `3. **CHECK** your recent login activity for unfamiliar locations\n` +
-                `4. **REPORT** this incident using the Submit Report form\n` +
-                `5. **LOG OUT** of all other sessions\n\n` +
-                `⚠️ Do NOT use the same password anywhere else!`
+                ? `**Account Compromise Response Protocol**\n\n` +
+        `**Immediate Actions:**\n` +
+        `1. **DISABLE** the compromised account in Active Directory\n` +
+        `2. **REVOKE** all active sessions and tokens\n` +
+        `3. **AUDIT** recent login history and IP addresses\n` +
+        `4. **CHECK** for lateral movement to other systems\n` +
+        `5. **PRESERVE** logs for forensic analysis\n\n` +
+        `**Recovery:**\n` +
+        `• Force password reset with complexity requirements\n` +
+        `• Enable MFA before re-enabling account\n` +
+        `• Monitor for 30 days post-incident`
+                : `**Your Account May Be Compromised - Take Action Now**\n\n` +
+        `1. **CHANGE** your password immediately from a trusted device\n` +
+        `2. **ENABLE** Two-Factor Authentication (2FA)\n` +
+        `3. **CHECK** your recent login activity for unfamiliar locations\n` +
+        `4. **REPORT** this incident using the Submit Report form\n` +
+        `5. **LOG OUT** of all other sessions\n\n` +
+        `Do NOT use the same password anywhere else!`
         },
-        // 2. PASSWORD SECURITY
-        {
-            id: 'password_security',
-            keywords: ['password', 'credential', 'login', 'strong password', 'password exposed', 'password leak', 'credential reuse', 'same password'],
-            getResponse: (role, isPrivileged) => isPrivileged
-                ? `🔑 **Password Security Best Practices (Admin)**\n\n` +
+// 2. PASSWORD SECURITY
+{
+    id: 'password_security',
+        keywords: ['password', 'credential', 'login', 'strong password', 'password exposed', 'password leak', 'credential reuse', 'same password'],
+                ? `**Password Security Best Practices (Admin)**\n\n` +
                 `**Policy Enforcement:**\n` +
                 `• Minimum 12 characters with complexity\n` +
                 `• Password history of 24 previous passwords\n` +
@@ -61,23 +59,22 @@ export class ChatbotService {
                 `• Monitor for credential stuffing patterns\n` +
                 `• Check Have I Been Pwned integration\n` +
                 `• Alert on password spray attacks`
-                : `🔑 **Creating Strong Passwords**\n\n` +
+                : `**Creating Strong Passwords**\n\n` +
                 `**DO:**\n` +
-                `✅ Use 12+ characters mixing letters, numbers, symbols\n` +
-                `✅ Use a unique password for each account\n` +
-                `✅ Consider using a password manager\n` +
-                `✅ Enable 2FA wherever possible\n\n` +
+                `* Use 12+ characters mixing letters, numbers, symbols\n` +
+                `* Use a unique password for each account\n` +
+                `* Consider using a password manager\n` +
+                `* Enable 2FA wherever possible\n\n` +
                 `**DON'T:**\n` +
-                `❌ Use personal info (birthdays, pet names)\n` +
-                `❌ Reuse passwords across sites\n` +
-                `❌ Share passwords with anyone`
-        },
-        // 3. PHISHING ATTACKS
-        {
-            id: 'phishing',
-            keywords: ['phishing', 'suspicious email', 'fake email', 'scam email', 'fishing', 'click link', 'verify account', 'urgent action', 'email scam'],
-            getResponse: (role, isPrivileged) => isPrivileged
-                ? `🎣 **Phishing Incident Response Protocol**\n\n` +
+                `* Use personal info (birthdays, pet names)\n` +
+                `* Reuse passwords across sites\n` +
+                `* Share passwords with anyone`
+},
+// 3. PHISHING ATTACKS
+{
+    id: 'phishing',
+        keywords: ['phishing', 'suspicious email', 'fake email', 'scam email', 'fishing', 'click link', 'verify account', 'urgent action', 'email scam'],
+                ? `**Phishing Incident Response Protocol**\n\n` +
                 `**Containment:**\n` +
                 `1. Block sender domain at email gateway\n` +
                 `2. Quarantine similar messages organization-wide\n` +
@@ -89,7 +86,7 @@ export class ChatbotService {
                 `**Analysis:**\n` +
                 `• Extract IOCs (URLs, domains, file hashes)\n` +
                 `• Check threat intel feeds for campaign attribution`
-                : `🎣 **Phishing Email Defense**\n\n` +
+                : `**Phishing Email Defense**\n\n` +
                 `**Warning Signs:**\n` +
                 `• Urgent language ("Act now!", "Account suspended!")\n` +
                 `• Sender address looks wrong (e.g., support@amaz0n.com)\n` +
@@ -99,12 +96,12 @@ export class ChatbotService {
                 `1. DO NOT click any links or attachments\n` +
                 `2. Report it via Submit Report\n` +
                 `3. Delete the email\n\n` +
-                `📧 When in doubt, contact IT directly!`
-        },
-        // 4. SOCIAL ENGINEERING
-        {
-            id: 'social_engineering',
-            keywords: ['social engineering', 'manipulated', 'tricked', 'pretexting', 'impersonation', 'pretending to be', 'caller claimed', 'vishing', 'smishing'],
+                `When in doubt, contact IT directly!`
+},
+// 4. SOCIAL ENGINEERING
+{
+    id: 'social_engineering',
+        keywords: ['social engineering', 'manipulated', 'tricked', 'pretexting', 'impersonation', 'pretending to be', 'caller claimed', 'vishing', 'smishing'],
             getResponse: (role, isPrivileged) => isPrivileged
                 ? `🎭 **Social Engineering Defense (Security Team)**\n\n` +
                 `**Attack Vectors:**\n` +
@@ -128,11 +125,11 @@ export class ChatbotService {
                 `✅ Verify caller identity through official channels\n` +
                 `✅ Take time to think - urgency is a manipulation tactic\n` +
                 `✅ Report suspicious approaches to IT`
-        },
-        // 5. MALWARE / VIRUS
-        {
-            id: 'malware',
-            keywords: ['malware', 'virus', 'infected', 'trojan', 'worm', 'spyware', 'adware', 'popup', 'slow computer', 'strange behavior'],
+},
+// 5. MALWARE / VIRUS
+{
+    id: 'malware',
+        keywords: ['malware', 'virus', 'infected', 'trojan', 'worm', 'spyware', 'adware', 'popup', 'slow computer', 'strange behavior'],
             getResponse: (role, isPrivileged) => isPrivileged
                 ? `🦠 **Malware Incident Response**\n\n` +
                 `**Immediate Containment:**\n` +
@@ -159,11 +156,11 @@ export class ChatbotService {
                 `3. SHUT DOWN the device\n` +
                 `4. BRING it to IT Support (Room 304)\n\n` +
                 `⚠️ Don't try to fix it yourself - you might spread it!`
-        },
-        // 6. RANSOMWARE
-        {
-            id: 'ransomware',
-            keywords: ['ransomware', 'files encrypted', 'bitcoin', 'ransom', 'locked files', 'decrypt', 'pay', 'hostage'],
+},
+// 6. RANSOMWARE
+{
+    id: 'ransomware',
+        keywords: ['ransomware', 'files encrypted', 'bitcoin', 'ransom', 'locked files', 'decrypt', 'pay', 'hostage'],
             getResponse: (role, isPrivileged) => isPrivileged
                 ? `🔒 **Ransomware Incident Response**\n\n` +
                 `**CRITICAL - Do NOT:**\n` +
@@ -188,11 +185,11 @@ export class ChatbotService {
                 `4. **CALL IT** immediately: Extension 5555\n` +
                 `5. **TAKE A PHOTO** of the ransom message\n\n` +
                 `IT may be able to recover your files from backups.`
-        },
-        // 7. SUSPICIOUS LINKS
-        {
-            id: 'suspicious_links',
-            keywords: ['suspicious link', 'clicked link', 'strange url', 'unknown website', 'redirect', 'shortened link', 'bit.ly', 'clicked on'],
+},
+// 7. SUSPICIOUS LINKS
+{
+    id: 'suspicious_links',
+        keywords: ['suspicious link', 'clicked link', 'strange url', 'unknown website', 'redirect', 'shortened link', 'bit.ly', 'clicked on'],
             getResponse: (role, isPrivileged) => isPrivileged
                 ? `🔗 **Suspicious Link Investigation**\n\n` +
                 `**Analysis Steps:**\n` +
@@ -215,11 +212,11 @@ export class ChatbotService {
                 `• Hover over links to see the real URL\n` +
                 `• Don't trust shortened links from unknown sources\n` +
                 `• When in doubt, navigate directly to the website`
-        },
-        // 8. PUBLIC WIFI SECURITY
-        {
-            id: 'public_wifi',
-            keywords: ['public wifi', 'free wifi', 'coffee shop', 'hotel wifi', 'airport wifi', 'open network', 'unsecured network', 'wifi security'],
+},
+// 8. PUBLIC WIFI SECURITY
+{
+    id: 'public_wifi',
+        keywords: ['public wifi', 'free wifi', 'coffee shop', 'hotel wifi', 'airport wifi', 'open network', 'unsecured network', 'wifi security'],
             getResponse: (role, isPrivileged) => isPrivileged
                 ? `📶 **Public WiFi Security Policy**\n\n` +
                 `**Enterprise Controls:**\n` +
@@ -241,11 +238,11 @@ export class ChatbotService {
                 `✅ Disable auto-connect to WiFi networks\n` +
                 `✅ Turn off WiFi when not in use\n\n` +
                 `❌ Never access banking or sensitive accounts on public WiFi`
-        },
-        // 9. LOST/STOLEN DEVICE
-        {
-            id: 'lost_device',
-            keywords: ['lost device', 'stolen laptop', 'lost phone', 'missing device', 'stolen phone', 'lost computer', 'device missing', 'can\'t find'],
+},
+// 9. LOST/STOLEN DEVICE
+{
+    id: 'lost_device',
+        keywords: ['lost device', 'stolen laptop', 'lost phone', 'missing device', 'stolen phone', 'lost computer', 'device missing', 'can\'t find'],
             getResponse: (role, isPrivileged) => isPrivileged
                 ? `📱 **Lost/Stolen Device Response Protocol**\n\n` +
                 `**Immediate Actions:**\n` +
@@ -268,11 +265,11 @@ export class ChatbotService {
                 `**IT Can Help:**\n` +
                 `• Remotely wipe university data\n` +
                 `• Revoke access to university systems`
-        },
-        // 10. DATA LEAK / SENSITIVE INFORMATION
-        {
-            id: 'data_leak',
-            keywords: ['data leak', 'data breach', 'sensitive information', 'exposed data', 'personal information', 'pii', 'confidential', 'accidentally sent', 'wrong recipient'],
+},
+// 10. DATA LEAK / SENSITIVE INFORMATION
+{
+    id: 'data_leak',
+        keywords: ['data leak', 'data breach', 'sensitive information', 'exposed data', 'personal information', 'pii', 'confidential', 'accidentally sent', 'wrong recipient'],
             getResponse: (role, isPrivileged) => isPrivileged
                 ? `📊 **Data Leak/Breach Response**\n\n` +
                 `**Classification:**\n` +
@@ -297,11 +294,11 @@ export class ChatbotService {
                 `• Double-check recipients before sending\n` +
                 `• Use encryption for sensitive files\n` +
                 `• Don't store sensitive data on personal devices`
-        },
-        // 11. TWO-FACTOR AUTHENTICATION
-        {
-            id: 'two_factor',
-            keywords: ['two factor', '2fa', 'mfa', 'multi-factor', 'authenticator', 'verification code', 'otp', 'one-time password', 'authentication app'],
+},
+// 11. TWO-FACTOR AUTHENTICATION
+{
+    id: 'two_factor',
+        keywords: ['two factor', '2fa', 'mfa', 'multi-factor', 'authenticator', 'verification code', 'otp', 'one-time password', 'authentication app'],
             getResponse: (role, isPrivileged) => isPrivileged
                 ? `🔐 **MFA Implementation Guidelines**\n\n` +
                 `**Recommended Methods (Priority Order):**\n` +
@@ -324,11 +321,11 @@ export class ChatbotService {
                 `**Benefits:**\n` +
                 `✅ Even if someone gets your password, they can't log in\n` +
                 `✅ You're notified of unauthorized login attempts`
-        },
-        // 12. SUSPICIOUS LOGIN
-        {
-            id: 'suspicious_login',
-            keywords: ['suspicious login', 'unknown login', 'login from', 'didn\'t log in', 'someone logged in', 'unfamiliar location', 'login alert', 'access from'],
+},
+// 12. SUSPICIOUS LOGIN
+{
+    id: 'suspicious_login',
+        keywords: ['suspicious login', 'unknown login', 'login from', 'didn\'t log in', 'someone logged in', 'unfamiliar location', 'login alert', 'access from'],
             getResponse: (role, isPrivileged) => isPrivileged
                 ? `🔍 **Suspicious Login Investigation**\n\n` +
                 `**Analysis Steps:**\n` +
@@ -351,11 +348,11 @@ export class ChatbotService {
                 `• Verify location matches where you were\n` +
                 `• VPN usage can show different locations\n` +
                 `• Mobile data vs WiFi may show different IPs`
-        },
-        // 13. EMAIL SPOOFING
-        {
-            id: 'email_spoofing',
-            keywords: ['email spoofing', 'fake sender', 'pretending email', 'forged email', 'impersonating email', 'from boss', 'ceo fraud', 'bec'],
+},
+// 13. EMAIL SPOOFING
+{
+    id: 'email_spoofing',
+        keywords: ['email spoofing', 'fake sender', 'pretending email', 'forged email', 'impersonating email', 'from boss', 'ceo fraud', 'bec'],
             getResponse: (role, isPrivileged) => isPrivileged
                 ? `📨 **Email Spoofing/BEC Response**\n\n` +
                 `**Technical Verification:**\n` +
@@ -378,11 +375,11 @@ export class ChatbotService {
                 `✅ Verify unusual requests by phone or in person\n` +
                 `✅ Check the actual email address, not just display name\n` +
                 `✅ Report suspicious emails to IT`
-        },
-        // 14. INSIDER THREAT
-        {
-            id: 'insider_threat',
-            keywords: ['insider threat', 'employee steal', 'internal threat', 'coworker suspicious', 'stealing data', 'disgruntled', 'termination', 'leaving employee'],
+},
+// 14. INSIDER THREAT
+{
+    id: 'insider_threat',
+        keywords: ['insider threat', 'employee steal', 'internal threat', 'coworker suspicious', 'stealing data', 'disgruntled', 'termination', 'leaving employee'],
             getResponse: (role, isPrivileged) => isPrivileged
                 ? `👤 **Insider Threat Indicators & Response**\n\n` +
                 `**Warning Signs:**\n` +
@@ -407,11 +404,11 @@ export class ChatbotService {
                 `• Attempts to bypass security procedures\n` +
                 `• Sharing credentials or access cards\n\n` +
                 `Your identity will be protected.`
-        },
-        // 15. BACKUP & RECOVERY
-        {
-            id: 'backup',
-            keywords: ['backup', 'restore', 'recovery', 'lost files', 'deleted files', 'recover data', 'backup data', 'save files'],
+},
+// 15. BACKUP & RECOVERY
+{
+    id: 'backup',
+        keywords: ['backup', 'restore', 'recovery', 'lost files', 'deleted files', 'recover data', 'backup data', 'save files'],
             getResponse: (role, isPrivileged) => isPrivileged
                 ? `💾 **Backup & Recovery Management**\n\n` +
                 `**Backup Strategy (3-2-1 Rule):**\n` +
@@ -432,11 +429,11 @@ export class ChatbotService {
                 `✅ Save important files to OneDrive or network drives\n` +
                 `✅ Don't rely solely on local storage\n` +
                 `✅ Version history protects against accidental changes`
-        },
-        // 16. IDENTITY THEFT
-        {
-            id: 'identity_theft',
-            keywords: ['identity theft', 'identity stolen', 'someone pretending to be me', 'fraud', 'credit', 'ssn', 'social security'],
+},
+// 16. IDENTITY THEFT
+{
+    id: 'identity_theft',
+        keywords: ['identity theft', 'identity stolen', 'someone pretending to be me', 'fraud', 'credit', 'ssn', 'social security'],
             getResponse: (role, isPrivileged) => isPrivileged
                 ? `🆔 **Identity Theft Response (Staff Member)**\n\n` +
                 `**If Student/Staff Affected:**\n` +
@@ -457,11 +454,11 @@ export class ChatbotService {
                 `**University Specific:**\n` +
                 `• Report to IT Security for account protection\n` +
                 `• Contact financial aid if student records affected`
-        },
-        // 17. BROWSER SECURITY
-        {
-            id: 'browser_security',
-            keywords: ['browser', 'extension', 'plugin', 'popup', 'certificate', 'not secure', 'https', 'browser hijack'],
+},
+// 17. BROWSER SECURITY
+{
+    id: 'browser_security',
+        keywords: ['browser', 'extension', 'plugin', 'popup', 'certificate', 'not secure', 'https', 'browser hijack'],
             getResponse: (role, isPrivileged) => isPrivileged
                 ? `🌐 **Browser Security Standards**\n\n` +
                 `**Enterprise Policy:**\n` +
@@ -483,11 +480,11 @@ export class ChatbotService {
                 `• New toolbars you didn't install\n` +
                 `• Lots of popup ads\n\n` +
                 `Contact IT if your browser behaves strangely.`
-        },
-        // 18. SECURE FILE SHARING
-        {
-            id: 'file_sharing',
-            keywords: ['file sharing', 'share files', 'send files', 'secure transfer', 'large file', 'dropbox', 'google drive', 'onedrive'],
+},
+// 18. SECURE FILE SHARING
+{
+    id: 'file_sharing',
+        keywords: ['file sharing', 'share files', 'send files', 'secure transfer', 'large file', 'dropbox', 'google drive', 'onedrive'],
             getResponse: (role, isPrivileged) => isPrivileged
                 ? `📁 **Secure File Sharing Policy**\n\n` +
                 `**Approved Methods:**\n` +
@@ -511,11 +508,11 @@ export class ChatbotService {
                 `❌ Use personal Dropbox/Google Drive for work\n` +
                 `❌ Share links publicly unless necessary\n\n` +
                 `Set expiration dates on shared links!`
-        },
-        // 19. SAFE WEB BROWSING
-        {
-            id: 'safe_browsing',
-            keywords: ['safe browsing', 'dangerous website', 'blocked site', 'download file', 'is this safe', 'trusted website', 'legitimate'],
+},
+// 19. SAFE WEB BROWSING
+{
+    id: 'safe_browsing',
+        keywords: ['safe browsing', 'dangerous website', 'blocked site', 'download file', 'is this safe', 'trusted website', 'legitimate'],
             getResponse: (role, isPrivileged) => isPrivileged
                 ? `🔍 **Web Filtering & Safe Browsing**\n\n` +
                 `**Controls:**\n` +
@@ -537,11 +534,11 @@ export class ChatbotService {
                 `✅ No excessive popups\n` +
                 `✅ Privacy policy available\n\n` +
                 `When in doubt, don't click!`
-        },
-        // 20. VPN USAGE
-        {
-            id: 'vpn',
-            keywords: ['vpn', 'remote access', 'work from home', 'connect remotely', 'virtual private network', 'tunnel'],
+},
+// 20. VPN USAGE
+{
+    id: 'vpn',
+        keywords: ['vpn', 'remote access', 'work from home', 'connect remotely', 'virtual private network', 'tunnel'],
             getResponse: (role, isPrivileged) => isPrivileged
                 ? `🔒 **VPN Security Configuration**\n\n` +
                 `**Best Practices:**\n` +
@@ -564,11 +561,11 @@ export class ChatbotService {
                 `3. Complete 2FA verification\n` +
                 `4. You're connected!\n\n` +
                 `Contact IT Help Desk for VPN setup assistance.`
-        },
-        // 21. SOFTWARE UPDATES
-        {
-            id: 'updates',
-            keywords: ['update', 'patch', 'outdated', 'vulnerable', 'software update', 'windows update', 'upgrade'],
+},
+// 21. SOFTWARE UPDATES
+{
+    id: 'updates',
+        keywords: ['update', 'patch', 'outdated', 'vulnerable', 'software update', 'windows update', 'upgrade'],
             getResponse: (role, isPrivileged) => isPrivileged
                 ? `🔄 **Patch Management Protocol**\n\n` +
                 `**Critical Patches:**\n` +
@@ -588,11 +585,11 @@ export class ChatbotService {
                 `✅ Update mobile apps too\n\n` +
                 `**University Computers:**\n` +
                 `Updates are managed automatically. Please don't postpone restarts for more than a day.`
-        },
-        // 22. PHYSICAL SECURITY
-        {
-            id: 'physical_security',
-            keywords: ['physical security', 'tailgating', 'badge', 'locked door', 'stranger', 'unauthorized person', 'secure area'],
+},
+// 22. PHYSICAL SECURITY
+{
+    id: 'physical_security',
+        keywords: ['physical security', 'tailgating', 'badge', 'locked door', 'stranger', 'unauthorized person', 'secure area'],
             getResponse: (role, isPrivileged) => isPrivileged
                 ? `🚪 **Physical Security Protocol**\n\n` +
                 `**Access Control:**\n` +
@@ -611,11 +608,11 @@ export class ChatbotService {
                 `✅ Report lost badges immediately\n\n` +
                 `**See Something Suspicious?**\n` +
                 `Contact Campus Security: 555-SAFE`
-        },
-        // 23. REPORTING INCIDENTS
-        {
-            id: 'incident_reporting',
-            keywords: ['report incident', 'how to report', 'where to report', 'security incident', 'submit report', 'notify security', 'escalate'],
+},
+// 23. REPORTING INCIDENTS
+{
+    id: 'incident_reporting',
+        keywords: ['report incident', 'how to report', 'where to report', 'security incident', 'submit report', 'notify security', 'escalate'],
             getResponse: (role, isPrivileged) => isPrivileged
                 ? `📋 **Incident Reporting & Escalation**\n\n` +
                 `**Severity Classification:**\n` +
@@ -637,11 +634,11 @@ export class ChatbotService {
                 `**For Emergencies:**\n` +
                 `Call IT Security immediately: Extension 5555\n\n` +
                 `Reports can be anonymous if you prefer.`
-        },
-        // 24. SECURITY AWARENESS
-        {
-            id: 'security_awareness',
-            keywords: ['security training', 'awareness', 'best practices', 'tips', 'how to stay safe', 'security basics', 'learn security'],
+},
+// 24. SECURITY AWARENESS
+{
+    id: 'security_awareness',
+        keywords: ['security training', 'awareness', 'best practices', 'tips', 'how to stay safe', 'security basics', 'learn security'],
             getResponse: (role, isPrivileged) => isPrivileged
                 ? `📚 **Security Awareness Program**\n\n` +
                 `**Training Components:**\n` +
@@ -662,11 +659,11 @@ export class ChatbotService {
                 `💾 Back up important files\n\n` +
                 `**Training:**\n` +
                 `Complete your annual security training in the Learning Portal.`
-        },
-        // 25. MOBILE DEVICE SECURITY
-        {
-            id: 'mobile_security',
-            keywords: ['mobile', 'phone security', 'smartphone', 'tablet', 'byod', 'personal device', 'mobile app'],
+},
+// 25. MOBILE DEVICE SECURITY
+{
+    id: 'mobile_security',
+        keywords: ['mobile', 'phone security', 'smartphone', 'tablet', 'byod', 'personal device', 'mobile app'],
             getResponse: (role, isPrivileged) => isPrivileged
                 ? `📱 **Mobile Device Management (MDM)**\n\n` +
                 `**BYOD Policy:**\n` +
@@ -687,11 +684,11 @@ export class ChatbotService {
                 `✅ Be careful with app permissions\n\n` +
                 `**University Email on Phone:**\n` +
                 `Use the Outlook app with your university credentials.`
-        },
-        // 26. ENCRYPTION
-        {
-            id: 'encryption',
-            keywords: ['encryption', 'encrypt', 'encrypted', 'decrypt', 'sensitive data', 'protect files', 'bitlocker', 'secure storage'],
+},
+// 26. ENCRYPTION
+{
+    id: 'encryption',
+        keywords: ['encryption', 'encrypt', 'encrypted', 'decrypt', 'sensitive data', 'protect files', 'bitlocker', 'secure storage'],
             getResponse: (role, isPrivileged) => isPrivileged
                 ? `🔐 **Encryption Standards**\n\n` +
                 `**At Rest:**\n` +
@@ -711,11 +708,11 @@ export class ChatbotService {
                 `• Use OneDrive (encrypted by default)\n` +
                 `• Password-protect sensitive documents\n` +
                 `• Use encrypted email for confidential info`
-        },
-        // 27. ACCOUNT LOCKOUT
-        {
-            id: 'account_lockout',
-            keywords: ['locked out', 'can\'t login', 'account locked', 'too many attempts', 'forgot password', 'reset password', 'unlock account'],
+},
+// 27. ACCOUNT LOCKOUT
+{
+    id: 'account_lockout',
+        keywords: ['locked out', 'can\'t login', 'account locked', 'too many attempts', 'forgot password', 'reset password', 'unlock account'],
             getResponse: (role, isPrivileged) => isPrivileged
                 ? `🔓 **Account Lockout Management**\n\n` +
                 `**Lockout Policy:**\n` +
@@ -735,11 +732,11 @@ export class ChatbotService {
                 `**Still Locked Out?**\n` +
                 `Contact IT Help Desk with your student/staff ID.\n\n` +
                 `ℹ️ Accounts auto-unlock after 15 minutes.`
-        },
-        // 28. SECURE COMMUNICATION
-        {
-            id: 'secure_communication',
-            keywords: ['secure communication', 'private message', 'encrypted chat', 'confidential communication', 'teams', 'zoom', 'meeting security'],
+},
+// 28. SECURE COMMUNICATION
+{
+    id: 'secure_communication',
+        keywords: ['secure communication', 'private message', 'encrypted chat', 'confidential communication', 'teams', 'zoom', 'meeting security'],
             getResponse: (role, isPrivileged) => isPrivileged
                 ? `💬 **Secure Communication Guidelines**\n\n` +
                 `**Approved Platforms:**\n` +
@@ -760,11 +757,11 @@ export class ChatbotService {
                 `• Use meeting passwords\n` +
                 `• Don't share meeting links publicly\n` +
                 `• Be aware of your background`
-        },
-        // 29. USB DEVICE SECURITY
-        {
-            id: 'usb_security',
-            keywords: ['usb', 'flash drive', 'thumb drive', 'external drive', 'found usb', 'unknown usb', 'usb stick'],
+},
+// 29. USB DEVICE SECURITY
+{
+    id: 'usb_security',
+        keywords: ['usb', 'flash drive', 'thumb drive', 'external drive', 'found usb', 'unknown usb', 'usb stick'],
             getResponse: (role, isPrivileged) => isPrivileged
                 ? `💾 **USB Device Security Policy**\n\n` +
                 `**Controls:**\n` +
@@ -786,11 +783,11 @@ export class ChatbotService {
                 `• Scan drives before opening files\n` +
                 `• Don't store sensitive data on USB\n` +
                 `• Use cloud storage instead when possible`
-        },
-        // 30. REMOTE WORK SECURITY
-        {
-            id: 'remote_work',
-            keywords: ['remote work', 'work from home', 'wfh', 'home office', 'remote security', 'working remotely', 'hybrid work'],
+},
+// 30. REMOTE WORK SECURITY
+{
+    id: 'remote_work',
+        keywords: ['remote work', 'work from home', 'wfh', 'home office', 'remote security', 'working remotely', 'hybrid work'],
             getResponse: (role, isPrivileged) => isPrivileged
                 ? `🏠 **Remote Work Security Framework**\n\n` +
                 `**Technical Controls:**\n` +
@@ -811,11 +808,11 @@ export class ChatbotService {
                 `✅ Protect sensitive documents from view\n\n` +
                 `**Video Calls:**\n` +
                 `Be mindful of what's visible in your background!`
-        },
-        // 31. ZERO-DAY THREATS
-        {
-            id: 'zero_day',
-            keywords: ['zero day', 'zero-day', 'new vulnerability', 'unpatched', 'emerging threat', 'latest attack'],
+},
+// 31. ZERO-DAY THREATS
+{
+    id: 'zero_day',
+        keywords: ['zero day', 'zero-day', 'new vulnerability', 'unpatched', 'emerging threat', 'latest attack'],
             getResponse: (role, isPrivileged) => isPrivileged
                 ? `⚡ **Zero-Day Response Protocol**\n\n` +
                 `**Upon Discovery:**\n` +
@@ -837,11 +834,11 @@ export class ChatbotService {
                 `✅ Keep your software updated\n` +
                 `✅ Report anything unusual immediately\n` +
                 `✅ Follow security alerts from IT`
-        },
-        // 32. SOCIAL MEDIA SECURITY
-        {
-            id: 'social_media',
-            keywords: ['social media', 'facebook', 'twitter', 'linkedin', 'instagram', 'posting', 'oversharing', 'privacy settings'],
+},
+// 32. SOCIAL MEDIA SECURITY
+{
+    id: 'social_media',
+        keywords: ['social media', 'facebook', 'twitter', 'linkedin', 'instagram', 'posting', 'oversharing', 'privacy settings'],
             getResponse: (role, isPrivileged) => isPrivileged
                 ? `📱 **Social Media Security Policy**\n\n` +
                 `**Organizational Accounts:**\n` +
@@ -862,210 +859,210 @@ export class ChatbotService {
                 `• Beware of friend requests from strangers\n` +
                 `• Use unique passwords for each platform\n` +
                 `• Enable 2FA on all social accounts`
-        },
+},
     ];
 
     // --- MAIN ANSWER METHOD ---
     async answer(userId: string, role: UserRole, query: string) {
-        const lowerQuery = query.toLowerCase();
-        const isPrivileged = role === 'ADMIN' || role === 'SECURITY';
-        let answer = '';
-        let matchedTopic: SecurityTopic | null = null;
+    const lowerQuery = query.toLowerCase();
+    const isPrivileged = role === 'ADMIN' || role === 'SECURITY';
+    let answer = '';
+    let matchedTopic: SecurityTopic | null = null;
 
-        // --- SEMANTIC INTENT MATCHING ---
-        // Score each topic based on keyword matches
-        let bestScore = 0;
-        for (const topic of this.securityTopics) {
-            const score = this.calculateMatchScore(lowerQuery, topic.keywords);
-            if (score > bestScore) {
-                bestScore = score;
-                matchedTopic = topic;
-            }
+    // --- SEMANTIC INTENT MATCHING ---
+    // Score each topic based on keyword matches
+    let bestScore = 0;
+    for (const topic of this.securityTopics) {
+        const score = this.calculateMatchScore(lowerQuery, topic.keywords);
+        if (score > bestScore) {
+            bestScore = score;
+            matchedTopic = topic;
         }
-
-        // --- DATA QUERIES (Stats, Summary, Search) ---
-        const isStats = this.checkKeywords(lowerQuery, ['how many', 'stats', 'count', 'numbers', 'statistics', 'total']);
-        const isSummary = this.checkKeywords(lowerQuery, ['summarize', 'summary', 'latest', 'recent', 'overview', 'show me', 'my reports', 'list reports']);
-
-        if (isStats) {
-            answer = await this.handleStatsQuery(userId, role, isPrivileged);
-        } else if (isSummary) {
-            answer = await this.handleSummaryQuery(userId, role, isPrivileged, lowerQuery);
-        } else if (matchedTopic && bestScore >= 1) {
-            // Topic matched with sufficient confidence
-            answer = matchedTopic.getResponse(role, isPrivileged);
-        } else {
-            // No strong match - provide intelligent general response  
-            answer = this.getIntelligentFallback(query, role, isPrivileged);
-        }
-
-        // Persist chat history
-        await this.prisma.chatMessage.create({
-            data: {
-                userId,
-                role,
-                query,
-                response: answer,
-            },
-        });
-
-        // Audit log
-        await this.audit.log(userId, 'CHATBOT_QUERY', `Query: ${query.substring(0, 50)}`);
-
-        return answer;
     }
+
+    // --- DATA QUERIES (Stats, Summary, Search) ---
+    const isStats = this.checkKeywords(lowerQuery, ['how many', 'stats', 'count', 'numbers', 'statistics', 'total']);
+    const isSummary = this.checkKeywords(lowerQuery, ['summarize', 'summary', 'latest', 'recent', 'overview', 'show me', 'my reports', 'list reports']);
+
+    if (isStats) {
+        answer = await this.handleStatsQuery(userId, role, isPrivileged);
+    } else if (isSummary) {
+        answer = await this.handleSummaryQuery(userId, role, isPrivileged, lowerQuery);
+    } else if (matchedTopic && bestScore >= 1) {
+        // Topic matched with sufficient confidence
+        answer = matchedTopic.getResponse(role, isPrivileged);
+    } else {
+        // No strong match - provide intelligent general response  
+        answer = this.getIntelligentFallback(query, role, isPrivileged);
+    }
+
+    // Persist chat history
+    await this.prisma.chatMessage.create({
+        data: {
+            userId,
+            role,
+            query,
+            response: answer,
+        },
+    });
+
+    // Audit log
+    await this.audit.log(userId, 'CHATBOT_QUERY', `Query: ${query.substring(0, 50)}`);
+
+    return answer;
+}
 
     // --- HELPER METHODS ---
 
     private calculateMatchScore(query: string, keywords: string[]): number {
-        let matches = 0;
+    let matches = 0;
 
-        for (const keyword of keywords) {
-            const weight = keyword.length > 4 ? 2 : 1; // Longer keywords weighted more
-            if (query.includes(keyword)) {
-                matches += weight;
-            }
+    for (const keyword of keywords) {
+        const weight = keyword.length > 4 ? 2 : 1; // Longer keywords weighted more
+        if (query.includes(keyword)) {
+            matches += weight;
         }
-
-        return matches;
     }
+
+    return matches;
+}
 
     private checkKeywords(query: string, keywords: string[]): boolean {
-        return keywords.some(k => query.includes(k));
+    return keywords.some(k => query.includes(k));
+}
+
+    private async handleStatsQuery(userId: string, role: UserRole, isPrivileged: boolean): Promise < string > {
+    if(isPrivileged) {
+        // Admin/Security see all stats
+        const count = await this.prisma.report.count();
+        const openCount = await this.prisma.report.count({ where: { status: 'OPEN' } });
+        const resolvedCount = await this.prisma.report.count({ where: { status: 'RESOLVED' } });
+        const criticalCount = await this.prisma.report.count({ where: { priority: 'CRITICAL' } });
+
+        return `📊 **Platform-Wide Statistics**\n\n` +
+            `📋 **Total Reports**: ${count}\n` +
+            `🔴 **Open Issues**: ${openCount}\n` +
+            `✅ **Resolved**: ${resolvedCount}\n` +
+            `🔥 **Critical Priority**: ${criticalCount}`;
+    } else {
+        // Staff/Student see only their own stats
+        const myCount = await this.prisma.report.count({ where: { authorId: userId } });
+        const myOpen = await this.prisma.report.count({ where: { authorId: userId, status: 'OPEN' } });
+        const myResolved = await this.prisma.report.count({ where: { authorId: userId, status: 'RESOLVED' } });
+
+        return `📊 **Your Report Statistics**\n\n` +
+            `📋 **Your Total Reports**: ${myCount}\n` +
+            `🔴 **Open**: ${myOpen}\n` +
+            `✅ **Resolved**: ${myResolved}\n\n` +
+            `ℹ️ _Based on reports you have submitted._`;
     }
+}
 
-    private async handleStatsQuery(userId: string, role: UserRole, isPrivileged: boolean): Promise<string> {
-        if (isPrivileged) {
-            // Admin/Security see all stats
-            const count = await this.prisma.report.count();
-            const openCount = await this.prisma.report.count({ where: { status: 'OPEN' } });
-            const resolvedCount = await this.prisma.report.count({ where: { status: 'RESOLVED' } });
-            const criticalCount = await this.prisma.report.count({ where: { priority: 'CRITICAL' } });
+    private async handleSummaryQuery(userId: string, role: UserRole, isPrivileged: boolean, query: string): Promise < string > {
+    const take = 5;
 
-            return `📊 **Platform-Wide Statistics**\n\n` +
-                `📋 **Total Reports**: ${count}\n` +
-                `🔴 **Open Issues**: ${openCount}\n` +
-                `✅ **Resolved**: ${resolvedCount}\n` +
-                `🔥 **Critical Priority**: ${criticalCount}`;
-        } else {
-            // Staff/Student see only their own stats
-            const myCount = await this.prisma.report.count({ where: { authorId: userId } });
-            const myOpen = await this.prisma.report.count({ where: { authorId: userId, status: 'OPEN' } });
-            const myResolved = await this.prisma.report.count({ where: { authorId: userId, status: 'RESOLVED' } });
+    if(isPrivileged) {
+        // Admin/Security see all reports
+        const reports = await this.prisma.report.findMany({
+            take,
+            orderBy: { createdAt: 'desc' },
+            include: { author: true }
+        });
 
-            return `📊 **Your Report Statistics**\n\n` +
-                `📋 **Your Total Reports**: ${myCount}\n` +
-                `🔴 **Open**: ${myOpen}\n` +
-                `✅ **Resolved**: ${myResolved}\n\n` +
-                `ℹ️ _Based on reports you have submitted._`;
+        if (reports.length === 0) {
+            return "No reports found in the system.";
         }
-    }
 
-    private async handleSummaryQuery(userId: string, role: UserRole, isPrivileged: boolean, query: string): Promise<string> {
-        const take = 5;
+        let answer = `📋 **Latest Threat Reports (System-Wide)**\n\n`;
+        reports.forEach(r => {
+            answer += `• [${r.priority}] **${r.title}** (${r.status})\n`;
+            answer += `  _Author: ${r.isAnonymous ? 'Anonymous' : (r.author?.email || 'Unknown')}_\n\n`;
+        });
+        answer += `*Showing last ${take} reports.*`;
+        return answer;
+    } else {
+        // Staff/Student see only their own reports
+        const reports = await this.prisma.report.findMany({
+            where: { authorId: userId },
+            take,
+            orderBy: { createdAt: 'desc' },
+        });
 
-        if (isPrivileged) {
-            // Admin/Security see all reports
-            const reports = await this.prisma.report.findMany({
-                take,
-                orderBy: { createdAt: 'desc' },
-                include: { author: true }
-            });
+        if(reports.length === 0) {
+    return `📋 **Your Reports**\n\nYou haven't submitted any reports yet.\n\nUse the **Submit Report** page to report security incidents.`;
+}
 
-            if (reports.length === 0) {
-                return "No reports found in the system.";
-            }
-
-            let answer = `📋 **Latest Threat Reports (System-Wide)**\n\n`;
-            reports.forEach(r => {
-                answer += `• [${r.priority}] **${r.title}** (${r.status})\n`;
-                answer += `  _Author: ${r.isAnonymous ? 'Anonymous' : (r.author?.email || 'Unknown')}_\n\n`;
-            });
-            answer += `*Showing last ${take} reports.*`;
-            return answer;
-        } else {
-            // Staff/Student see only their own reports
-            const reports = await this.prisma.report.findMany({
-                where: { authorId: userId },
-                take,
-                orderBy: { createdAt: 'desc' },
-            });
-
-            if (reports.length === 0) {
-                return `📋 **Your Reports**\n\nYou haven't submitted any reports yet.\n\nUse the **Submit Report** page to report security incidents.`;
-            }
-
-            let answer = `📋 **Your Recent Reports**\n\n`;
-            reports.forEach(r => {
-                answer += `• [${r.priority}] **${r.title}** (${r.status})\n`;
-            });
-            answer += `\n_Based on reports you submitted._`;
-            return answer;
+let answer = `📋 **Your Recent Reports**\n\n`;
+reports.forEach(r => {
+    answer += `• [${r.priority}] **${r.title}** (${r.status})\n`;
+});
+answer += `\n_Based on reports you submitted._`;
+return answer;
         }
     }
 
     private getIntelligentFallback(originalQuery: string, role: UserRole, isPrivileged: boolean): string {
-        // Analyze query for context clues
-        const query = originalQuery.toLowerCase();
+    // Analyze query for context clues
+    const query = originalQuery.toLowerCase();
 
-        // Check for question words to provide contextual help
-        const isQuestion = query.includes('?') ||
-            query.startsWith('how') ||
-            query.startsWith('what') ||
-            query.startsWith('why') ||
-            query.startsWith('when') ||
-            query.startsWith('where') ||
-            query.startsWith('can') ||
-            query.startsWith('should');
+    // Check for question words to provide contextual help
+    const isQuestion = query.includes('?') ||
+        query.startsWith('how') ||
+        query.startsWith('what') ||
+        query.startsWith('why') ||
+        query.startsWith('when') ||
+        query.startsWith('where') ||
+        query.startsWith('can') ||
+        query.startsWith('should');
 
-        // Check for action intent
-        const wantsToReport = this.checkKeywords(query, ['report', 'submit', 'notify', 'tell']);
-        const needsHelp = this.checkKeywords(query, ['help', 'assist', 'support', 'confused', 'don\'t know']);
-        const askingAboutPlatform = this.checkKeywords(query, ['this platform', 'v-ctrip', 'this system', 'how does']);
+    // Check for action intent
+    const wantsToReport = this.checkKeywords(query, ['report', 'submit', 'notify', 'tell']);
+    const needsHelp = this.checkKeywords(query, ['help', 'assist', 'support', 'confused', 'don\'t know']);
+    const askingAboutPlatform = this.checkKeywords(query, ['this platform', 'v-ctrip', 'this system', 'how does']);
 
-        if (askingAboutPlatform) {
-            return `🛡️ **About V-CTRIP**\n\n` +
-                `The Veritas Cyber Threat Reporting & Intelligence Platform helps you:\n\n` +
-                `• **Report** security incidents and suspicious activity\n` +
-                `• **Track** the status of your reports\n` +
-                `• **Learn** about security best practices\n` +
-                `• **Stay informed** about campus security alerts\n\n` +
-                `How can I help you today?`;
-        }
-
-        if (wantsToReport) {
-            return `📝 **Ready to Report an Incident?**\n\n` +
-                `Use the **Submit Report** page in the navigation to:\n` +
-                `• Describe the security incident\n` +
-                `• Select the type and priority\n` +
-                `• Attach evidence if available\n` +
-                `• Submit anonymously if preferred\n\n` +
-                `Would you like guidance on a specific type of incident?`;
-        }
-
-        if (needsHelp) {
-            return `👋 **I'm Here to Help!**\n\n` +
-                `I can assist you with:\n\n` +
-                `**Security Questions:**\n` +
-                `• "What should I do if I clicked a suspicious link?"\n` +
-                `• "How do I protect myself from phishing?"\n` +
-                `• "I think my account was hacked"\n\n` +
-                `**Platform Questions:**\n` +
-                `• "How do I submit a report?"\n` +
-                `• "Show me my reports"\n` +
-                `• "How many reports are there?"\n\n` +
-                `Just ask in your own words!`;
-        }
-
-        // General intelligent response
-        return `🤖 **I understand you're asking about: "${originalQuery}"**\n\n` +
-            `I can help with many security topics including:\n\n` +
-            `🔐 Account security & passwords\n` +
-            `🎣 Phishing & email scams\n` +
-            `🦠 Malware & ransomware\n` +
-            `📱 Mobile & device security\n` +
-            `🏠 Remote work security\n` +
-            `📋 Incident reporting\n\n` +
-            `Could you tell me more about what you need help with?`;
+    if (askingAboutPlatform) {
+        return `🛡️ **About V-CTRIP**\n\n` +
+            `The Veritas Cyber Threat Reporting & Intelligence Platform helps you:\n\n` +
+            `• **Report** security incidents and suspicious activity\n` +
+            `• **Track** the status of your reports\n` +
+            `• **Learn** about security best practices\n` +
+            `• **Stay informed** about campus security alerts\n\n` +
+            `How can I help you today?`;
     }
+
+    if (wantsToReport) {
+        return `📝 **Ready to Report an Incident?**\n\n` +
+            `Use the **Submit Report** page in the navigation to:\n` +
+            `• Describe the security incident\n` +
+            `• Select the type and priority\n` +
+            `• Attach evidence if available\n` +
+            `• Submit anonymously if preferred\n\n` +
+            `Would you like guidance on a specific type of incident?`;
+    }
+
+    if (needsHelp) {
+        return `👋 **I'm Here to Help!**\n\n` +
+            `I can assist you with:\n\n` +
+            `**Security Questions:**\n` +
+            `• "What should I do if I clicked a suspicious link?"\n` +
+            `• "How do I protect myself from phishing?"\n` +
+            `• "I think my account was hacked"\n\n` +
+            `**Platform Questions:**\n` +
+            `• "How do I submit a report?"\n` +
+            `• "Show me my reports"\n` +
+            `• "How many reports are there?"\n\n` +
+            `Just ask in your own words!`;
+    }
+
+    // General intelligent response
+    return `🤖 **I understand you're asking about: "${originalQuery}"**\n\n` +
+        `I can help with many security topics including:\n\n` +
+        `🔐 Account security & passwords\n` +
+        `🎣 Phishing & email scams\n` +
+        `🦠 Malware & ransomware\n` +
+        `📱 Mobile & device security\n` +
+        `🏠 Remote work security\n` +
+        `📋 Incident reporting\n\n` +
+        `Could you tell me more about what you need help with?`;
+}
 }

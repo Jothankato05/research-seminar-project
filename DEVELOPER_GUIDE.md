@@ -2,7 +2,7 @@ Welcome to the **Veritas Cyber Threat Reporting & Intelligence Platform (V-CTRIP
 
 ---
 
-## 🎯 1. The Core Mission: What Problem is V-CTRIP Solving?
+## 1. The Core Mission: What Problem is V-CTRIP Solving?
 
 In many institutions (like universities), cyber threat reporting is often **fragmented, slow, and intimidating**. V-CTRIP solves these 4 critical industry problems:
 
@@ -13,7 +13,7 @@ In many institutions (like universities), cyber threat reporting is often **frag
 
 ---
 
-## 🚀 2. The "5-Minute" Quick Start
+## 2. The "5-Minute" Quick Start
 
 ### **Prerequisites**
 - **Node.js** (v18 or higher)
@@ -61,7 +61,7 @@ If asked about security, mention these 4 pillars:
 
 ---
 
-## 🛡 3. Defense Strategy: Q&A Preparation
+## 4. Defense Strategy: Q&A Preparation
 
 **Q1: Why did you choose NestJS instead of simple Express?**  
 > *Answer:* NestJS provides a modular architecture that is easier to scale and maintain. It uses TypeScript by default and enforces a "Controller-Service" pattern, making the code cleaner and more testable.
@@ -77,7 +77,7 @@ If asked about security, mention these 4 pillars:
 
 ---
 
-## 🔑 Demo Credentials (Seeded Data)
+## Demo Credentials (Seeded Data)
 | Role | Email | Password |
 | :--- | :--- | :--- |
 | **Admin** | `admin@veritas.edu` | `Password123!` |

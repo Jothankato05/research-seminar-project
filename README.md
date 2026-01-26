@@ -2,7 +2,7 @@
 
 V-CTRIP is a comprehensive web-based platform designed for reporting, tracking, and analyzing cyber threats. Built with a focus on defense-in-depth and modern security practices, it serves as a central hub for threat intelligence and incident management.
 
-## 🚀 Features
+## Features
 
 - **Anonymous Threat Reporting**: Safely report incidents with optional anonymity.
 - **Incident Lifecycle Management**: Track reports from Open to Investigation and Resolution.
@@ -12,7 +12,7 @@ V-CTRIP is a comprehensive web-based platform designed for reporting, tracking, 
 - **Advanced Security**: Implements JWT (RS256), bcrypt hashing, rate limiting, and secure HTTP headers.
 - **Audit Logging**: Comprehensive tracking of all critical system actions for forensic purposes.
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 - **React 18** with **TypeScript**
@@ -27,7 +27,7 @@ V-CTRIP is a comprehensive web-based platform designed for reporting, tracking, 
 - **Passport.js** for authentication
 - **PostgreSQL** (Database)
 
-## 📁 Project Structure
+## Project Structure
 
 ```text
 RESEARCH SEMINAR PROJECT/
@@ -40,7 +40,7 @@ RESEARCH SEMINAR PROJECT/
 └── docker-compose.yml  # Container orchestration
 ```
 
-## ⚙️ Getting Started
+## Getting Started
 
 ### Prerequisites
 - Node.js (v18+)
@@ -75,7 +75,7 @@ RESEARCH SEMINAR PROJECT/
    npm run dev
    ```
 
-## 🚀 Deployment
+## Deployment
 
 The project is configured for easy deployment on **Render.com**:
 
@@ -85,7 +85,7 @@ The project is configured for easy deployment on **Render.com**:
 
 Refer to `render.yaml` for infrastructure-as-code configuration.
 
-## 🔒 Security Implementation
+## Security Implementation
 
 V-CTRIP follows the OWASP Top 10 mitigations and industry-standard security patterns:
 - **Authentication**: JWT with RS256 asymmetric signing.
@@ -94,6 +94,6 @@ V-CTRIP follows the OWASP Top 10 mitigations and industry-standard security patt
 - **Data Protection**: Parameterized queries via Prisma to prevent SQL Injection.
 - **Input Validation**: Global validation pipes for strict DTO checking.
 
-## 📜 License
+## License
 
 This project is developed as part of a Research Seminar. All rights reserved.

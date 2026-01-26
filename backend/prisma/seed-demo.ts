@@ -4,7 +4,7 @@ import * as bcrypt from 'bcrypt';
 const prisma = new PrismaClient();
 
 async function main() {
-    console.log('🌱 Seeding demo users...\n');
+    console.log('Seeding demo users...\n');
 
     const password = 'Password123!';
     const salt = await bcrypt.genSalt();
@@ -25,7 +25,7 @@ async function main() {
                 where: { email: user.email },
                 data: { role: user.role, isLocked: false, failedLoginAttempts: 0 },
             });
-            console.log(`✅ Updated: ${user.email} (${user.role})`);
+            console.log(`Updated: ${user.email} (${user.role})`);
         } else {
             await prisma.user.create({
                 data: {
@@ -34,12 +34,12 @@ async function main() {
                     role: user.role,
                 },
             });
-            console.log(`✅ Created: ${user.email} (${user.role})`);
+            console.log(`Created: ${user.email} (${user.role})`);
         }
     }
 
-    console.log('\n🎉 Demo users ready!');
-    console.log('\n📋 Login credentials for all users:');
+    console.log('\nDemo users ready!');
+    console.log('\nLogin credentials for all users:');
     console.log('   Password: Password123!\n');
     console.log('   student@veritas.edu  - Can submit reports');
     console.log('   staff@veritas.edu    - Can update report status');

@@ -3,12 +3,12 @@
 
 Clear-Host
 Write-Host "====================================================" -ForegroundColor Cyan
-Write-Host "🎓 V-CTRIP: Veritas Cyber Threat Platform Setup" -ForegroundColor Cyan
+Write-Host "V-CTRIP: Veritas Cyber Threat Platform Setup" -ForegroundColor Cyan
 Write-Host "====================================================" -ForegroundColor Cyan
 
 # 1. Check for Node.js
 if (!(Get-Command node -ErrorAction SilentlyContinue)) {
-    Write-Host "❌ Error: Node.js is not installed. Please install it from https://nodejs.org/" -ForegroundColor Red
+    Write-Host "Error: Node.js is not installed. Please install it from https://nodejs.org/" -ForegroundColor Red
     exit
 }
 
@@ -18,13 +18,13 @@ $BackendPath = Join-Path $RootPath "backend"
 $FrontendPath = Join-Path $RootPath "frontend"
 
 # 3. Database Password Collection
-Write-Host "`n🔑 Database Configuration:" -ForegroundColor Yellow
+Write-Host "`nDatabase Configuration:" -ForegroundColor Yellow
 $DbPass = Read-Host "Enter your PostgreSQL 'postgres' user password"
 $EscapedPass = [uri]::EscapeDataString($DbPass)
 $DbUrl = "postgresql://postgres:$($EscapedPass)@localhost:5432/vctrip"
 
 # 4. Setup Backend Environment
-Write-Host "`n📦 Setting up Backend..." -ForegroundColor Yellow
+Write-Host "`nSetting up Backend..." -ForegroundColor Yellow
 Set-Location $BackendPath
 
 if (!(Test-Path ".env")) {
@@ -45,15 +45,16 @@ npx prisma generate
 Write-Host "  - Setting up Database tables..."
 try {
     npx prisma db push --accept-data-loss
-} catch {
-    Write-Host "  ⚠️ Warning: Database push failed. Make sure PostgreSQL is running and you have created the 'vctrip' database." -ForegroundColor Red
+}
+catch {
+    Write-Host "  Warning: Database push failed. Make sure PostgreSQL is running and you have created the 'vctrip' database." -ForegroundColor Red
 }
 
 Write-Host "  - Seeding Demo Data..."
 npx ts-node prisma/seed-demo.ts
 
 # 5. Setup Frontend Environment
-Write-Host "`n🎨 Setting up Frontend..." -ForegroundColor Yellow
+Write-Host "`nSetting up Frontend..." -ForegroundColor Yellow
 Set-Location $FrontendPath
 
 if (!(Test-Path ".env")) {
@@ -66,7 +67,7 @@ npm install --quiet
 
 # 6. Final Steps
 Set-Location $RootPath
-Write-Host "`n✅ SETUP COMPLETE!" -ForegroundColor Green
+Write-Host "`nSETUP COMPLETE!" -ForegroundColor Green
 Write-Host "===================================================="
 Write-Host "HOW TO RUN THE PROJECT:" -ForegroundColor Cyan
 Write-Host "1. In terminal 1 (Backend):"
