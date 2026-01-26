@@ -942,22 +942,22 @@ export class ChatbotService {
             const resolvedCount = await this.prisma.report.count({ where: { status: 'RESOLVED' } });
             const criticalCount = await this.prisma.report.count({ where: { priority: 'CRITICAL' } });
 
-            return `📊 **Platform-Wide Statistics**\n\n` +
-                `📋 **Total Reports**: ${count}\n` +
-                `🔴 **Open Issues**: ${openCount}\n` +
-                `✅ **Resolved**: ${resolvedCount}\n` +
-                `🔥 **Critical Priority**: ${criticalCount}`;
+            return `**Platform-Wide Statistics**\n\n` +
+                `**Total Reports**: ${count}\n` +
+                `**Open Issues**: ${openCount}\n` +
+                `**Resolved**: ${resolvedCount}\n` +
+                `**Critical Priority**: ${criticalCount}`;
         } else {
             // Staff/Student see only their own stats
             const myCount = await this.prisma.report.count({ where: { authorId: userId } });
             const myOpen = await this.prisma.report.count({ where: { authorId: userId, status: 'OPEN' } });
             const myResolved = await this.prisma.report.count({ where: { authorId: userId, status: 'RESOLVED' } });
 
-            return `📊 **Your Report Statistics**\n\n` +
-                `📋 **Your Total Reports**: ${myCount}\n` +
-                `🔴 **Open**: ${myOpen}\n` +
-                `✅ **Resolved**: ${myResolved}\n\n` +
-                `ℹ️ _Based on reports you have submitted._`;
+            return `**Your Report Statistics**\n\n` +
+                `**Your Total Reports**: ${myCount}\n` +
+                `**Open**: ${myOpen}\n` +
+                `**Resolved**: ${myResolved}\n\n` +
+                `_Based on reports you have submitted._`;
         }
     }
 
@@ -976,7 +976,7 @@ export class ChatbotService {
                 return "No reports found in the system.";
             }
 
-            let answer = `📋 **Latest Threat Reports (System-Wide)**\n\n`;
+            let answer = `**Latest Threat Reports (System-Wide)**\n\n`;
             reports.forEach(r => {
                 answer += `• [${r.priority}] **${r.title}** (${r.status})\n`;
                 answer += `  _Author: ${r.isAnonymous ? 'Anonymous' : (r.author?.email || 'Unknown')}_\n\n`;
@@ -992,10 +992,10 @@ export class ChatbotService {
             });
 
             if (reports.length === 0) {
-                return `📋 **Your Reports**\n\nYou haven't submitted any reports yet.\n\nUse the **Submit Report** page to report security incidents.`;
+                return `**Your Reports**\n\nYou haven't submitted any reports yet.\n\nUse the **Submit Report** page to report security incidents.`;
             }
 
-            let answer = `📋 **Your Recent Reports**\n\n`;
+            let answer = `**Your Recent Reports**\n\n`;
             reports.forEach(r => {
                 answer += `• [${r.priority}] **${r.title}** (${r.status})\n`;
             });
