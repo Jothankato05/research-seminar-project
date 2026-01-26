@@ -1,10 +1,19 @@
-# 🎓 V-CTRIP: Developer & Defense Guide
-
 Welcome to the **Veritas Cyber Threat Reporting & Intelligence Platform (V-CTRIP)**. This document is designed to get you up and running in 5 minutes and provide you with the technical depth needed to defend this project during a presentation.
 
 ---
 
-## 🚀 1. The "5-Minute" Quick Start
+## 🎯 1. The Core Mission: What Problem is V-CTRIP Solving?
+
+In many institutions (like universities), cyber threat reporting is often **fragmented, slow, and intimidating**. V-CTRIP solves these 4 critical industry problems:
+
+1.  **The "Fear Factor" (Reporting Gap)**: Many users see phishing or malware but don't report it because they fear being blamed. **V-CTRIP's Anonymous Reporting** builds trust and increases the "eyes on the ground."
+2.  **Fragmented Communication**: Using emails or phone calls for security leads to data loss. V-CTRIP provides a **Centralized Command Center** where every incident has a permanent record and a status (Open, Investigating, Resolved).
+3.  **Lack of Historical Intelligence**: Organizations often "forget" old attacks. Our **Intelligence Database** turns past incidents into a searchable knowledge base so the team can prevent history from repeating itself.
+4.  **The "Who Did What?" Problem**: In high-security environments, accountability is king. Our **Automated Audit Logs** ensure that every action taken by an analyst or admin is recorded for forensic verification.
+
+---
+
+## 🚀 2. The "5-Minute" Quick Start
 
 ### **Prerequisites**
 - **Node.js** (v18 or higher)
