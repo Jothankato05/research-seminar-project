@@ -7,8 +7,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#0F766E', // Dark turquoise
-        secondary: '#14B8A6', // Turquoise
+        primary: '#1B5E20', // Veritas Academic Green
+        secondary: '#0D47A1', // Navy Blue (Security/Trust)
+        accent: '#F9A825', // Gold (Excellence)
         white: '#FFFFFF',
       },
     },

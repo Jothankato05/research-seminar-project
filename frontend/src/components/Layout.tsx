@@ -29,7 +29,7 @@ export const Layout = () => {
     return (
         <div className="min-h-screen bg-gray-50">
             {/* Enhanced Navigation Bar */}
-            <nav className="bg-gradient-to-r from-gray-800 to-gray-900 text-white shadow-lg">
+            <nav className="bg-gradient-to-r from-primary to-green-900 text-white shadow-lg">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 items-center justify-between">
                         {/* Logo & Brand Section */}
@@ -41,7 +41,7 @@ export const Layout = () => {
                                     <Link to="/" className="text-xl font-bold tracking-tight text-white">
                                         V-CTRIP
                                     </Link>
-                                    <p className="text-xs text-gray-400">Cyber Threat Intelligence Platform</p>
+                                    <p className="text-xs text-green-100 italic">"Seeking the Truth"</p>
                                 </div>
                             </div>
 
@@ -106,7 +106,7 @@ export const Layout = () => {
             {/* Footer */}
             <footer className="bg-gray-100 border-t border-gray-200 py-4 mt-auto">
                 <div className="mx-auto max-w-7xl px-4 text-center text-sm text-gray-500">
-                    <p>© 2026 Veritas University - Cyber Threat Reporting & Intelligence Platform</p>
+                    <p>© 2026 Veritas University Abuja - V-CTRIP | ICT Centre</p>
                 </div>
             </footer>
         </div>

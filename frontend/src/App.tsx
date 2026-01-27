@@ -10,6 +10,7 @@ import { IntelligenceDatabase } from './pages/IntelligenceDatabase';
 import { AnalyticsDashboard } from './pages/AnalyticsDashboard';
 import { AdminDashboard } from './pages/AdminDashboard';
 import { NotificationToast } from './components/NotificationToast';
+import { PanicButton } from './components/PanicButton';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated, isLoading } = useAuth();
@@ -30,6 +31,7 @@ function App() {
     <AuthProvider>
       <Router>
         <NotificationToast />
+        <PanicButton />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
