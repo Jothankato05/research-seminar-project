@@ -12,8 +12,10 @@ import {
     XCircle,
     Search,
     ShieldAlert,
-    Fingerprint
+    Fingerprint,
+    Cpu
 } from 'lucide-react';
+import { LabInstance } from '../components/LabInstance';
 
 interface Report {
     id: string;
@@ -26,6 +28,7 @@ interface Report {
     author: {
         email: string;
     } | null;
+    instance?: any;
 }
 
 export const AnalystDashboard = () => {
@@ -150,6 +153,11 @@ export const AnalystDashboard = () => {
                                         <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
                                             {report.type}
                                         </span>
+                                        {report.instance && report.instance.status !== 'TERMINATED' && (
+                                            <span className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-500/10 text-emerald-600 text-[9px] font-black uppercase tracking-widest animate-pulse border border-emerald-500/10">
+                                                <Cpu className="w-3 h-3" /> Lab Active
+                                            </span>
+                                        )}
                                     </div>
                                     <h3 className="text-xl font-black text-secondary mb-3 group-hover:text-primary transition-colors pr-8">
                                         {report.title}
@@ -305,6 +313,13 @@ export const AnalystDashboard = () => {
                                 </>
                             )}
                         </div>
+
+                        {/* Discovery Instance Section */}
+                        {selectedReport.status === 'INVESTIGATING' && (
+                            <div className="pt-4 border-t border-gray-100">
+                                <LabInstance reportId={selectedReport.id} existingInstance={selectedReport.instance} />
+                            </div>
+                        )}
                     </div>
                 )}
             </Modal>

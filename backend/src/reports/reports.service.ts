@@ -50,6 +50,7 @@ export class ReportsService {
                     author: {
                         select: { id: true, email: true, role: true },
                     },
+                    instance: true,
                     _count: {
                         select: { comments: true, votes: true, evidence: true },
                     },

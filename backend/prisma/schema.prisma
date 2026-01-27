@@ -54,6 +54,7 @@ model User {
   votes               Vote[]
   notifications       Notification[]
   chatMessages        ChatMessage[]
+  createdInstances    InvestigationInstance[] @relation("CreatorInstances")
 
   @@map("users")
 }
@@ -73,6 +74,7 @@ model Report {
   evidence    Evidence[]
   comments    Comment[]
   votes       Vote[]
+  instance    InvestigationInstance?
   
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt
@@ -81,6 +83,33 @@ model Report {
   @@index([priority])
   @@index([createdAt])
   @@map("reports")
+}
+
+model InvestigationInstance {
+  id          String         @id @default(uuid())
+  name        String
+  targetIp    String?
+  sshCommand  String?
+  status      InstanceStatus @default(PROVISIONING)
+  
+  reportId    String?        @unique
+  report      Report?        @relation(fields: [reportId], references: [id])
+  
+  creatorId   String
+  creator     User           @relation("CreatorInstances", fields: [creatorId], references: [id])
+  
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  @@map("investigation_instances")
+}
+
+enum InstanceStatus {
+  PROVISIONING
+  RUNNING
+  STOPPING
+  STOPPED
+  TERMINATED
 }
 
 model Evidence {

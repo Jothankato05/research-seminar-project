@@ -12,6 +12,7 @@ import { AnalyticsModule } from './analytics/analytics.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { AdminModule } from './admin/admin.module';
 import { ChatbotModule } from './chatbot/chatbot.module';
+import { LabsModule } from './labs/labs.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { ChatbotModule } from './chatbot/chatbot.module';
     NotificationsModule,
     AdminModule,
     ChatbotModule,
+    LabsModule,
   ],
   controllers: [AppController],
   providers: [
