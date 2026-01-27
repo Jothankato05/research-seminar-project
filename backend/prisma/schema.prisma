@@ -88,6 +88,8 @@ model Report {
 model InvestigationInstance {
   id          String         @id @default(uuid())
   name        String
+  osType      String         @default("Linux")
+  osVersion   String         @default("Ubuntu 22.04 LTS")
   targetIp    String?
   sshCommand  String?
   status      InstanceStatus @default(PROVISIONING)

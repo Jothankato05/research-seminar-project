@@ -15,9 +15,13 @@ import {
     Activity
 } from 'lucide-react';
 
+import { TerminalModal } from './TerminalModal';
+
 interface Instance {
     id: string;
     name: string;
+    osType: string;
+    osVersion: string;
     targetIp: string;
     sshCommand: string;
     status: 'PROVISIONING' | 'RUNNING' | 'STOPPED' | 'TERMINATED';
@@ -32,6 +36,7 @@ export const LabInstance = ({ reportId, existingInstance }: LabInstanceProps) =>
     const [instance, setInstance] = useState<Instance | null>(existingInstance || null);
     const [isLoading, setIsLoading] = useState(false);
     const [copied, setCopied] = useState(false);
+    const [isTerminalOpen, setIsTerminalOpen] = useState(false);
 
     useEffect(() => {
         let interval: any;
@@ -161,23 +166,27 @@ export const LabInstance = ({ reportId, existingInstance }: LabInstanceProps) =>
                             </div>
                             <div className="p-4 bg-gray-50/50 rounded-2xl border border-gray-100">
                                 <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest flex items-center gap-2 mb-2">
-                                    <Shield className="w-3 h-3" /> Security Policy
+                                    <Shield className="w-3 h-3" /> System OS
                                 </p>
-                                <p className="text-sm font-black text-secondary">Isolate-High</p>
+                                <p className="text-sm font-black text-secondary">{instance.osType} {instance.osVersion}</p>
                             </div>
                         </div>
 
-                        <div className="space-y-3">
-                            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest flex items-center gap-2">
-                                <Terminal className="w-3 h-3" /> Access Command
-                            </p>
-                            <div className="flex items-center gap-3 p-4 bg-secondary text-emerald-400 rounded-2xl font-mono text-xs group relative border border-white/10 shadow-xl">
+                        <div className="flex gap-4">
+                            <Button
+                                className="flex-1 rounded-2xl bg-secondary text-white py-4 font-black text-[10px] uppercase tracking-widest shadow-xl"
+                                onClick={() => setIsTerminalOpen(true)}
+                            >
+                                <Terminal className="w-4 h-4 mr-2" />
+                                Launch Web Console
+                            </Button>
+                            <div className="flex-1 flex items-center gap-3 p-4 bg-gray-50 text-gray-500 rounded-2xl font-mono text-[10px] group relative border border-gray-100">
                                 <span className="flex-1 overflow-hidden overflow-ellipsis">{instance.sshCommand}</span>
                                 <button
                                     onClick={() => copyToClipboard(instance.sshCommand)}
-                                    className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+                                    className="p-2 hover:bg-gray-200 rounded-lg transition-colors"
                                 >
-                                    {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
+                                    {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-3 h-3" />}
                                 </button>
                                 {copied && <span className="absolute -top-8 right-0 text-[10px] font-bold text-emerald-500 bg-emerald-500/10 px-2 py-1 rounded">Copied!</span>}
                             </div>
@@ -197,6 +206,13 @@ export const LabInstance = ({ reportId, existingInstance }: LabInstanceProps) =>
                     </>
                 )}
             </div>
+
+            {/* Terminal Interface */}
+            <TerminalModal
+                isOpen={isTerminalOpen}
+                onClose={() => setIsTerminalOpen(false)}
+                instanceName={instance.name}
+            />
         </div>
     );
 };
