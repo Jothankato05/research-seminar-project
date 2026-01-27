@@ -10,7 +10,7 @@ import {
     ChevronRight,
     Calendar,
     Hash,
-    ShieldInfo
+    ShieldAlert as ShieldInfo
 } from 'lucide-react';
 
 interface Report {
