@@ -91,9 +91,9 @@ export const ChatBot = () => {
                             ? 'bg-blue-600 text-white rounded-br-none'
                             : 'bg-white border border-gray-200 text-gray-800 rounded-bl-none shadow-sm'
                             }`}>
-                            <ReactMarkdown className="prose prose-sm max-w-none text-sm markdown-content">
-                                {msg.content}
-                            </ReactMarkdown>
+                            <div className="markdown-content text-sm">
+                                <ReactMarkdown>{msg.content || ''}</ReactMarkdown>
+                            </div>
                         </div>
                     </div>
                 ))}
