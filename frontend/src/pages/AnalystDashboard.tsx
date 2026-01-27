@@ -57,6 +57,7 @@ export const AnalystDashboard = () => {
     const updateStatus = async (id: string, newStatus: string) => {
         try {
             await axios.patch(`/reports/${id}/status`, { status: newStatus });
+            setFilter(newStatus); // Automatically switch to the tab where the report moved
             fetchReports();
             if (selectedReport?.id === id) {
                 setSelectedReport({ ...selectedReport, status: newStatus });
