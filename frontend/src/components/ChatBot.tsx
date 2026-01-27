@@ -44,7 +44,7 @@ export const ChatBot = () => {
         } catch (e: any) {
             setMessages(prev => [...prev, {
                 role: 'bot',
-                content: e.response?.data?.message || 'Sorry, I encountered an error processing your request.'
+                content: e.response?.data?.message || 'Sorry, I encountered an error processing your request. Please check your connection or try logging in again.'
             }]);
         } finally {
             setLoading(false);
