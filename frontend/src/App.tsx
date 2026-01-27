@@ -9,6 +9,7 @@ import { AnalystDashboard } from './pages/AnalystDashboard';
 import { IntelligenceDatabase } from './pages/IntelligenceDatabase';
 import { AnalyticsDashboard } from './pages/AnalyticsDashboard';
 import { AdminDashboard } from './pages/AdminDashboard';
+import { NotificationToast } from './components/NotificationToast';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated, isLoading } = useAuth();
@@ -28,6 +29,7 @@ function App() {
   return (
     <AuthProvider>
       <Router>
+        <NotificationToast />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
