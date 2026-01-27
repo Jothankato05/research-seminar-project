@@ -23,7 +23,7 @@ async function main() {
             // Update role if user exists
             await prisma.user.update({
                 where: { email: user.email },
-                data: { role: user.role, isLocked: false, failedLoginAttempts: 0 },
+                data: { role: user.role, isLocked: false, failedLoginAttempts: 0, passwordHash },
             });
             console.log(`Updated: ${user.email} (${user.role})`);
         } else {

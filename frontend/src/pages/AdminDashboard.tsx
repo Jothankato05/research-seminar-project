@@ -8,12 +8,20 @@ import {
     YAxis,
     CartesianGrid,
     Tooltip,
-    Legend,
     ResponsiveContainer,
     PieChart,
     Pie,
     Cell,
 } from 'recharts';
+import {
+    History,
+    Search,
+    Activity,
+    ShieldCheck,
+    Lock,
+    Unlock,
+    Users
+} from 'lucide-react';
 
 interface User {
     id: string;
@@ -40,6 +48,7 @@ export const AdminDashboard = () => {
     const [auditLogs, setAuditLogs] = useState<AuditLog[]>([]);
     const [activeTab, setActiveTab] = useState<'users' | 'audit'>('users');
     const [isLoading, setIsLoading] = useState(true);
+    const [searchTerm, setSearchTerm] = useState('');
 
     const fetchData = async () => {
         setIsLoading(true);
@@ -64,15 +73,18 @@ export const AdminDashboard = () => {
     const toggleLock = async (userId: string) => {
         try {
             await axios.patch(`admin/users/${userId}/lock`);
-            // Optimistic update or refetch
             setUsers(users.map(u => u.id === userId ? { ...u, isLocked: !u.isLocked } : u));
         } catch (error) {
             console.error('Failed to toggle lock', error);
-            alert('Failed to toggle lock');
         }
     };
 
-    // Prepare chart data - INSIDE THE COMPONENT
+    const filteredUsers = users.filter(u => u.email.toLowerCase().includes(searchTerm.toLowerCase()));
+    const filteredLogs = auditLogs.filter(l =>
+        l.action.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        l.user?.email.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     const roleData = [
         { name: 'Admin', value: users.filter(u => u.role === 'ADMIN').length },
         { name: 'Staff', value: users.filter(u => u.role === 'STAFF').length },
@@ -80,9 +92,8 @@ export const AdminDashboard = () => {
         { name: 'Analyst', value: users.filter(u => u.role === 'ANALYST').length },
     ].filter(d => d.value > 0);
 
-    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+    const COLORS = ['#10b981', '#f59e0b', '#ef4444', '#6366f1'];
 
-    // Group logs by action for the bar chart
     const actionCounts: Record<string, number> = {};
     auditLogs.forEach(log => {
         actionCounts[log.action] = (actionCounts[log.action] || 0) + 1;
@@ -90,77 +101,82 @@ export const AdminDashboard = () => {
     const activityData = Object.keys(actionCounts).map(key => ({
         name: key,
         count: actionCounts[key],
-    })).sort((a, b) => b.count - a.count).slice(0, 5); // Top 5 actions
+    })).sort((a, b) => b.count - a.count).slice(0, 5);
 
     return (
-        <div className="space-y-6">
-            <div className="flex justify-between items-center">
-                <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-                <div className="flex space-x-2">
-                    <button
-                        onClick={() => setActiveTab('users')}
-                        className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'users'
-                            ? 'bg-primary text-white'
-                            : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300'
-                            }`}
-                    >
-                        User Management
-                    </button>
-                    <button
-                        onClick={() => setActiveTab('audit')}
-                        className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'audit'
-                            ? 'bg-primary text-white'
-                            : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300'
-                            }`}
-                    >
-                        Audit Logs
-                    </button>
+        <div className="space-y-8 animate-in">
+            {/* Header */}
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+                <div>
+                    <h1 className="text-4xl font-black text-secondary tracking-tight">
+                        System <span className="text-gradient">Administration</span>
+                    </h1>
+                    <p className="text-gray-500 mt-1 font-medium">Global governance and audit monitoring</p>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3">
+                    <div className="relative">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                        <input
+                            type="text"
+                            placeholder={`Search ${activeTab}...`}
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="pl-10 pr-4 py-2 bg-white border border-gray-100 rounded-xl text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all w-64 shadow-sm"
+                        />
+                    </div>
                 </div>
             </div>
 
-            {/* Dashboard Statistics Charts */}
+            {/* Quick Stats & Charts */}
             {!isLoading && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                    <div className="bg-white p-4 rounded-lg shadow border border-gray-200">
-                        <h3 className="text-lg font-medium mb-4">User Distribution by Role</h3>
-                        <div className="h-64">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div className="lg:col-span-4 glass-card p-8 rounded-[2rem]">
+                        <h3 className="text-sm font-black text-secondary uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
+                            <Users className="w-4 h-4 text-primary" /> User Distribution
+                        </h3>
+                        <div className="h-56">
                             <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
                                     <Pie
                                         data={roleData}
                                         cx="50%"
                                         cy="50%"
-                                        labelLine={false}
-                                        label={({ name, percent }: { name?: string | number; percent?: number }) => `${name || 'Unknown'}: ${((percent || 0) * 100).toFixed(0)}%`}
+                                        innerRadius={60}
                                         outerRadius={80}
-                                        fill="#8884d8"
+                                        paddingAngle={5}
                                         dataKey="value"
                                     >
                                         {roleData.map((_, index) => (
                                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                         ))}
                                     </Pie>
-                                    <Tooltip />
+                                    <Tooltip contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }} />
                                 </PieChart>
                             </ResponsiveContainer>
                         </div>
+                        <div className="mt-4 flex flex-wrap gap-4 justify-center">
+                            {roleData.map((d, i) => (
+                                <div key={d.name} className="flex items-center gap-2">
+                                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: COLORS[i % COLORS.length] }}></div>
+                                    <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">{d.name}</span>
+                                </div>
+                            ))}
+                        </div>
                     </div>
 
-                    <div className="bg-white p-4 rounded-lg shadow border border-gray-200">
-                        <h3 className="text-lg font-medium mb-4">Top System Activities</h3>
+                    <div className="lg:col-span-8 glass-card p-8 rounded-[2rem]">
+                        <h3 className="text-sm font-black text-secondary uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
+                            <Activity className="w-4 h-4 text-primary" /> Key System Activities
+                        </h3>
                         <div className="h-64">
                             <ResponsiveContainer width="100%" height="100%">
-                                <BarChart
-                                    data={activityData}
-                                    layout="vertical"
-                                    margin={{ top: 5, right: 30, left: 40, bottom: 5 }}
-                                >
-                                    <CartesianGrid strokeDasharray="3 3" />
-                                    <XAxis type="number" />
-                                    <YAxis dataKey="name" type="category" width={120} tick={{ fontSize: 12 }} />
-                                    <Tooltip />
-                                    <Legend />
-                                    <Bar dataKey="count" fill="#8884d8" name="Events" />
+                                <BarChart data={activityData} layout="vertical">
+                                    <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#f1f5f9" />
+                                    <XAxis type="number" hide />
+                                    <YAxis dataKey="name" type="category" width={120} tick={{ fontSize: 10, fontWeight: 700, fill: '#94a3b8' }} axisLine={false} tickLine={false} />
+                                    <Tooltip cursor={{ fill: 'rgba(5, 74, 41, 0.05)' }} contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }} />
+                                    <Bar dataKey="count" fill="#054a29" radius={[0, 8, 8, 0]} barSize={20} />
                                 </BarChart>
                             </ResponsiveContainer>
                         </div>
@@ -168,48 +184,87 @@ export const AdminDashboard = () => {
                 </div>
             )}
 
+            {/* Navigation Tabs */}
+            <div className="flex bg-white/50 backdrop-blur-sm p-1.5 rounded-2xl border border-gray-100 w-fit">
+                <button
+                    onClick={() => setActiveTab('users')}
+                    className={`flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${activeTab === 'users'
+                            ? 'bg-primary text-white shadow-lg shadow-primary/20'
+                            : 'text-gray-400 hover:text-secondary hover:bg-white'
+                        }`}
+                >
+                    <ShieldCheck className="w-4 h-4" />
+                    User Management
+                </button>
+                <button
+                    onClick={() => setActiveTab('audit')}
+                    className={`flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${activeTab === 'audit'
+                            ? 'bg-primary text-white shadow-lg shadow-primary/20'
+                            : 'text-gray-400 hover:text-secondary hover:bg-white'
+                        }`}
+                >
+                    <History className="w-4 h-4" />
+                    Audit Logs
+                </button>
+            </div>
+
+            {/* Data View */}
             {isLoading ? (
-                <div>Loading...</div>
+                <div className="flex items-center justify-center py-20">
+                    <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+                </div>
             ) : (
-                <div className="bg-white shadow overflow-hidden sm:rounded-md">
+                <div className="glass-card rounded-[2.5rem] overflow-hidden border-white/40">
                     {activeTab === 'users' ? (
                         <div className="overflow-x-auto">
-                            <table className="min-w-full divide-y divide-gray-200">
-                                <thead className="bg-gray-50">
+                            <table className="w-full text-left">
+                                <thead className="bg-gray-50/50">
                                     <tr>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Joined</th>
-                                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                        <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">Identity</th>
+                                        <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">Role</th>
+                                        <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">Security Status</th>
+                                        <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest text-right">Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody className="bg-white divide-y divide-gray-200">
-                                    {users.map((user) => (
-                                        <tr key={user.id}>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{user.email}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.role}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
+                                <tbody className="divide-y divide-gray-100/50">
+                                    {filteredUsers.map((user) => (
+                                        <tr key={user.id} className="hover:bg-gray-50/30 transition-colors group">
+                                            <td className="px-8 py-6">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-10 h-10 rounded-xl bg-primary/5 flex items-center justify-center text-primary font-black text-xs">
+                                                        {user.email.charAt(0).toUpperCase()}
+                                                    </div>
+                                                    <div>
+                                                        <p className="text-sm font-black text-secondary">{user.email}</p>
+                                                        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">Registered {new Date(user.createdAt).toLocaleDateString()}</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td className="px-8 py-6">
+                                                <span className="px-3 py-1 bg-gray-100 rounded-lg text-[10px] font-black text-gray-500 uppercase tracking-widest">
+                                                    {user.role}
+                                                </span>
+                                            </td>
+                                            <td className="px-8 py-6">
                                                 {user.isLocked ? (
-                                                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                                                        Locked
+                                                    <span className="flex items-center gap-2 text-red-500 text-[10px] font-black uppercase tracking-widest">
+                                                        <Lock className="w-3 h-3" /> Breach Protocol / Locked
                                                     </span>
                                                 ) : (
-                                                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                        Active
+                                                    <span className="flex items-center gap-2 text-emerald-500 text-[10px] font-black uppercase tracking-widest">
+                                                        <Unlock className="w-3 h-3" /> Secure / Active
                                                     </span>
                                                 )}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                {new Date(user.createdAt).toLocaleDateString()}
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <td className="px-8 py-6 text-right">
                                                 <Button
-                                                    size="sm"
-                                                    variant={user.isLocked ? 'primary' : 'outline'}
+                                                    className={`rounded-xl px-4 py-2 font-black text-[10px] uppercase tracking-widest transition-all ${user.isLocked
+                                                            ? 'bg-emerald-500 hover:bg-emerald-600 shadow-emerald-200'
+                                                            : 'bg-red-500 hover:bg-red-600 shadow-red-200'
+                                                        } text-white shadow-lg`}
                                                     onClick={() => toggleLock(user.id)}
                                                 >
-                                                    {user.isLocked ? 'Unlock' : 'Lock'}
+                                                    {user.isLocked ? 'Unlock Access' : 'Suspend Access'}
                                                 </Button>
                                             </td>
                                         </tr>
@@ -219,26 +274,34 @@ export const AdminDashboard = () => {
                         </div>
                     ) : (
                         <div className="overflow-x-auto">
-                            <table className="min-w-full divide-y divide-gray-200">
-                                <thead className="bg-gray-50">
+                            <table className="w-full text-left">
+                                <thead className="bg-gray-50/50">
                                     <tr>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Timestamp</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Details</th>
+                                        <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">Event Timestamp</th>
+                                        <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">Agent</th>
+                                        <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">Operation</th>
+                                        <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">Data Details</th>
                                     </tr>
                                 </thead>
-                                <tbody className="bg-white divide-y divide-gray-200">
-                                    {auditLogs.map((log) => (
-                                        <tr key={log.id}>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                <tbody className="divide-y divide-gray-100/50">
+                                    {filteredLogs.map((log) => (
+                                        <tr key={log.id} className="hover:bg-gray-50/30 transition-colors">
+                                            <td className="px-8 py-6 text-xs font-bold text-gray-400">
                                                 {new Date(log.createdAt).toLocaleString()}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                {log.user ? log.user.email : 'System'}
+                                            <td className="px-8 py-6">
+                                                <span className="text-sm font-black text-secondary">
+                                                    {log.user ? log.user.email : 'System Terminal'}
+                                                </span>
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{log.action}</td>
-                                            <td className="px-6 py-4 text-sm text-gray-500 max-w-md truncate">{log.details}</td>
+                                            <td className="px-8 py-6">
+                                                <span className="px-3 py-1 bg-primary/5 text-primary border border-primary/10 rounded-lg text-[10px] font-black uppercase tracking-widest">
+                                                    {log.action}
+                                                </span>
+                                            </td>
+                                            <td className="px-8 py-6 text-xs text-gray-500 font-medium">
+                                                {log.details}
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>

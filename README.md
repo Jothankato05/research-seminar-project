@@ -2,13 +2,14 @@
 
 V-CTRIP is a comprehensive web-based platform designed for reporting, tracking, and analyzing cyber threats. Built with a focus on defense-in-depth and modern security practices, it serves as a central hub for threat intelligence and incident management.
 
-## Features
-
+- **Intelligent Security Assistant**: AI-powered (simulated) chatbot for instant security guidance and system statistics.
+- **Real-time Incident Alerts**: WebSocket-driven notifications for critical threat detections.
+- **Emergency Panic Button**: Instantly trigger high-priority alerts across the system for immediate response.
+- **Dynamic Threat Visualization**: Modern dashboards using Recharts for real-time analytics and data-driven insights.
+- **Veritas University Branding**: Tailored UI with university identity and "Seeking the Truth" motto.
 - **Anonymous Threat Reporting**: Safely report incidents with optional anonymity.
 - **Incident Lifecycle Management**: Track reports from Open to Investigation and Resolution.
 - **Role-Based Access Control (RBAC)**: Distinct permissions for Students, Staff, Analysts (Security), and Admins.
-- **Real-time Analytics**: Visualize threat patterns and statistics via a dedicated dashboard.
-- **Intelligence Database**: Access verified and resolved incidents for historical reference.
 - **Advanced Security**: Implements JWT (RS256), bcrypt hashing, rate limiting, and secure HTTP headers.
 - **Audit Logging**: Comprehensive tracking of all critical system actions for forensic purposes.
 

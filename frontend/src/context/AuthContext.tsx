@@ -4,7 +4,7 @@ import axios from 'axios';
 // Configure axios defaults - use environment variable or fallback
 // Configure axios defaults - use environment variable or fallback to relative path
 const API_URL = import.meta.env.VITE_API_URL || '/api/v1';
-axios.defaults.baseURL = API_URL;
+axios.defaults.baseURL = API_URL.endsWith('/') ? API_URL : `${API_URL}/`;
 
 interface User {
     id: string;

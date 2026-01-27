@@ -4,6 +4,8 @@ import { useAuth } from '../context/AuthContext';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
 import axios from 'axios';
+import { motion } from 'framer-motion';
+import veritasLogo from '../assets/veritas-logo.jfif';
 
 export const Login = () => {
     const [email, setEmail] = useState('');
@@ -31,15 +33,32 @@ export const Login = () => {
     };
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
-            <div className="w-full max-w-md space-y-8">
-                <div>
-                    <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-                        Sign in to your account
+        <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8 bg-[url('/vctrip-banner.png')] bg-cover bg-center bg-no-repeat">
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="w-full max-w-md space-y-8 bg-white/90 backdrop-blur-md p-8 rounded-2xl shadow-2xl border border-white/20 relative z-10"
+            >
+                <div className="text-center">
+                    <img
+                        src={veritasLogo}
+                        alt="Veritas University"
+                        className="mx-auto h-24 w-auto mb-4"
+                    />
+                    <h2 className="text-3xl font-extrabold tracking-tight text-gray-900">
+                        V-CTRIP
                     </h2>
-                    <p className="mt-2 text-center text-sm text-gray-600">
+                    <p className="mt-2 text-sm text-gray-600">
+                        Veritas Cyber Threat Reporting & Intelligence Platform
+                    </p>
+                    <h3 className="mt-6 text-xl font-bold text-gray-800">
+                        Sign in to your account
+                    </h3>
+                    <p className="mt-2 text-sm text-gray-600">
                         Or{' '}
-                        <Link to="/register" className="font-medium text-primary hover:text-primary/90">
+                        <Link to="/register" className="font-medium text-primary hover:text-primary-dark transition-colors">
                             create a new account
                         </Link>
                     </p>
@@ -82,7 +101,7 @@ export const Login = () => {
                         </Button>
                     </div>
                 </form>
-            </div>
+            </motion.div>
         </div>
     );
 };
