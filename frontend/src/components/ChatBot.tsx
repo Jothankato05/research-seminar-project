@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { Bot, User, MessageSquare, ShieldAlert } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 import { useAuth } from '../context/AuthContext';
 import { Button } from './ui/Button';
 import { Input } from './ui/Input';
@@ -90,7 +91,9 @@ export const ChatBot = () => {
                             ? 'bg-blue-600 text-white rounded-br-none'
                             : 'bg-white border border-gray-200 text-gray-800 rounded-bl-none shadow-sm'
                             }`}>
-                            <p className="whitespace-pre-wrap text-sm">{msg.content}</p>
+                            <ReactMarkdown className="prose prose-sm max-w-none text-sm markdown-content">
+                                {msg.content}
+                            </ReactMarkdown>
                         </div>
                     </div>
                 ))}
