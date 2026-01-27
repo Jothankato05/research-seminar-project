@@ -7,11 +7,14 @@ import { CreateVoteDto } from './dto/create-vote.dto';
 import { UserRole, ReportStatus } from '@prisma/client';
 import { AuditService } from '../audit/audit.service';
 
+import { ReportsGateway } from './reports.gateway';
+
 @Injectable()
 export class ReportsService {
     constructor(
         private prisma: PrismaService,
         private auditService: AuditService,
+        private reportsGateway: ReportsGateway,
     ) { }
 
     async create(createReportDto: CreateReportDto, userId: string) {
@@ -25,6 +28,9 @@ export class ReportsService {
                 authorId: createReportDto.isAnonymous ? null : userId,
             },
         });
+
+        // Notify admins of critical issues
+        this.reportsGateway.notifyNewReport(report);
 
         await this.auditService.log(userId, 'REPORT_CREATED', `Report ${report.id} created`);
         return report;
