@@ -90,6 +90,7 @@ model InvestigationInstance {
   name        String
   osType      String         @default("Linux")
   osVersion   String         @default("Ubuntu 22.04 LTS")
+  region      String         @default("VERITAS-NG-WEST-1")
   targetIp    String?
   sshCommand  String?
   status      InstanceStatus @default(PROVISIONING)

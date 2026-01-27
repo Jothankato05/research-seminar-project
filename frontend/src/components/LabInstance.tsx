@@ -22,6 +22,7 @@ interface Instance {
     name: string;
     osType: string;
     osVersion: string;
+    region?: string;
     targetIp: string;
     sshCommand: string;
     status: 'PROVISIONING' | 'RUNNING' | 'STOPPED' | 'TERMINATED';
@@ -37,6 +38,31 @@ export const LabInstance = ({ reportId, existingInstance }: LabInstanceProps) =>
     const [isLoading, setIsLoading] = useState(false);
     const [copied, setCopied] = useState(false);
     const [isTerminalOpen, setIsTerminalOpen] = useState(false);
+    const [provisioningProgress, setProvisioningProgress] = useState(0);
+    const [provisioningStep, setProvisioningStep] = useState('Initializing SOC Infrastructure...');
+
+    useEffect(() => {
+        let timer: any;
+        if (instance?.status === 'PROVISIONING') {
+            const steps = [
+                { p: 15, s: 'Allocating isolated compute resources...' },
+                { p: 35, s: 'Pulling forensics image: Ubuntu 22.04 LTS...' },
+                { p: 60, s: 'Generating ephemeral SSH credentials...' },
+                { p: 85, s: 'Configuring sandbox firewall policies...' },
+                { p: 95, s: 'Instance boot-sequence in progress...' }
+            ];
+
+            let currentStepIdx = 0;
+            timer = setInterval(() => {
+                if (currentStepIdx < steps.length) {
+                    setProvisioningProgress(steps[currentStepIdx].p);
+                    setProvisioningStep(steps[currentStepIdx].s);
+                    currentStepIdx++;
+                }
+            }, 2500);
+        }
+        return () => clearInterval(timer);
+    }, [instance?.status]);
 
     useEffect(() => {
         let interval: any;
@@ -123,7 +149,7 @@ export const LabInstance = ({ reportId, existingInstance }: LabInstanceProps) =>
                             <div className="flex items-center gap-2 mt-2">
                                 <span className={`w-2 h-2 rounded-full ${instance.status === 'RUNNING' ? 'bg-emerald-500 animate-pulse' : 'bg-primary animate-bounce'}`}></span>
                                 <span className="text-[10px] font-black uppercase text-gray-400 tracking-widest">
-                                    {instance.status}
+                                    {instance.status} • {instance.region || 'VERITAS-NG-WEST-1'}
                                 </span>
                             </div>
                         </div>
@@ -143,17 +169,27 @@ export const LabInstance = ({ reportId, existingInstance }: LabInstanceProps) =>
             {/* Instance Details */}
             <div className="p-8 space-y-6">
                 {instance.status === 'PROVISIONING' ? (
-                    <div className="space-y-4 py-4">
-                        <div className="flex justify-between text-[10px] font-black uppercase text-gray-400 tracking-widest">
-                            <span>Allocating Resources...</span>
-                            <span>45%</span>
+                    <div className="space-y-6 py-6">
+                        <div className="flex justify-between items-end mb-2">
+                            <div className="space-y-1">
+                                <p className="text-[10px] font-black text-primary uppercase tracking-[0.2em]">Deployment Status</p>
+                                <p className="text-sm font-black text-secondary">{provisioningStep}</p>
+                            </div>
+                            <span className="text-xl font-black text-primary">{provisioningProgress}%</span>
                         </div>
-                        <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-                            <div className="h-full bg-primary w-[45%] rounded-full transition-all duration-1000 animate-pulse"></div>
+                        <div className="h-3 bg-gray-100 rounded-full overflow-hidden p-1 border border-gray-100">
+                            <div
+                                className="h-full bg-primary rounded-full transition-all duration-700 relative"
+                                style={{ width: `${provisioningProgress}%` }}
+                            >
+                                <div className="absolute inset-0 bg-white/20 animate-shimmer"></div>
+                            </div>
                         </div>
-                        <p className="text-xs font-medium text-gray-500 leading-relaxed italic">
-                            Your investigation sandbox is being provisioned. This takes approximately 15 seconds.
-                        </p>
+                        <div className="grid grid-cols-3 gap-3">
+                            {[1, 2, 3].map(i => (
+                                <div key={i} className={`h-1.5 rounded-full transition-colors duration-500 ${provisioningProgress > (i * 30) ? 'bg-primary' : 'bg-gray-100'}`}></div>
+                            ))}
+                        </div>
                     </div>
                 ) : (
                     <>

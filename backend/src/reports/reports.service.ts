@@ -131,6 +131,7 @@ export class ReportsService {
                     orderBy: { createdAt: 'asc' },
                 },
                 votes: true,
+                instance: true,
             },
         });
 

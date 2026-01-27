@@ -13,12 +13,13 @@ export class LabsController {
     @Post('spawn/:reportId')
     @Roles(UserRole.ADMIN, UserRole.SECURITY, UserRole.STAFF)
     async spawn(@Param('reportId') reportId: string, @Req() req: any) {
-        return this.labsService.spawnInstance(reportId, req.user.id);
+        console.log(`[LabsController] Received spawn request for report ${reportId}`);
+        return this.labsService.spawnInstance(reportId, req.user.userId);
     }
 
     @Get('my')
     async getMyInstances(@Req() req: any) {
-        return this.labsService.getUserInstances(req.user.id);
+        return this.labsService.getUserInstances(req.user.userId);
     }
 
     @Get(':id')

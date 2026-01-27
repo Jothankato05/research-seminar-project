@@ -146,7 +146,10 @@ export const AnalystDashboard = () => {
                         >
                             <div className="flex flex-col lg:flex-row divide-y lg:divide-y-0 lg:divide-x divide-gray-100/50">
                                 {/* Left Section: Info */}
-                                <div className="p-8 flex-1">
+                                <div
+                                    className="p-8 flex-1 cursor-pointer hover:bg-gray-50/30 transition-colors"
+                                    onClick={() => setSelectedReport(report)}
+                                >
                                     <div className="flex items-center gap-3 mb-4">
                                         <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] border ${getPriorityStyle(report.priority)}`}>
                                             {report.priority}
@@ -176,6 +179,9 @@ export const AnalystDashboard = () => {
                                             <Calendar className="w-4 h-4" />
                                             {new Date(report.createdAt).toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' })}
                                         </div>
+                                        <span className="ml-auto text-[9px] font-black text-primary uppercase tracking-[0.2em] opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-2">
+                                            Click to Audit <ChevronRight className="w-3 h-3" />
+                                        </span>
                                     </div>
                                 </div>
 

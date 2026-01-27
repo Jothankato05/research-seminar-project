@@ -7,6 +7,7 @@ export class LabsService {
     constructor(private prisma: PrismaService) { }
 
     async spawnInstance(reportId: string, userId: string) {
+        console.log(`[LabsService] Spawning instance for report: ${reportId} by user: ${userId}`);
         // Check if report exists
         const report = await this.prisma.report.findUnique({
             where: { id: reportId },
@@ -22,9 +23,9 @@ export class LabsService {
         }
 
         // Generate random mock data
-        const labName = `vuln-lab-${report.title.toLowerCase().replace(/\s+/g, '-')}-${Math.floor(Math.random() * 1000)}`;
-        const mockIp = `10.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 254) + 1}`;
-        const mockSsh = `ssh analyst@${mockIp} -p 2222`;
+        const labName = `SOC-LAB-${report.title.toUpperCase().split(' ')[0]}-${Math.floor(Math.random() * 9000) + 1000}`;
+        const mockIp = `192.168.${Math.floor(Math.random() * 100) + 10}.${Math.floor(Math.random() * 254) + 1}`;
+        const mockSsh = `ssh forensic-analyst@${mockIp} -p 2222`;
 
         // Create Instance record
         const instance = await this.prisma.investigationInstance.create({
@@ -33,6 +34,9 @@ export class LabsService {
                 targetIp: mockIp,
                 sshCommand: mockSsh,
                 status: InstanceStatus.PROVISIONING,
+                region: "VERITAS-NG-WEST-1",
+                osType: "GNU/Linux",
+                osVersion: "Ubuntu 22.04 LTS (Jammy Jellyfish)",
                 reportId: reportId,
                 creatorId: userId,
             }

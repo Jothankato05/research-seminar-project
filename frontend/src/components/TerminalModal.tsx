@@ -99,6 +99,25 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose, i
                 term.writeln(`Setting up ${tool}...`);
                 term.writeln(`\x1b[1;32mDone! ${tool} is now ready for use.\x1b[0m`);
             }
+        } else if (command === 'whoami') {
+            term.writeln('analyst');
+        } else if (command === 'date') {
+            term.writeln(new Date().toString());
+        } else if (command === 'ps') {
+            term.writeln('  PID TTY          TIME CMD');
+            term.writeln(' 1234 pts/0    00:00:00 bash');
+            term.writeln(' 5678 pts/0    00:00:00 ps');
+            term.writeln(' 9012 pts/0    00:00:15 forensics_engine');
+        } else if (command === 'df -h') {
+            term.writeln('Filesystem      Size  Used Avail Use% Mounted on');
+            term.writeln('overlay          40G   12G   28G  30% /');
+            term.writeln('tmpfs            64M     0   64M   0% /dev');
+            term.writeln('/dev/sda1        40G   12G   28G  30% /etc/hosts');
+        } else if (command === 'cat readme.md') {
+            term.writeln('\x1b[1;34m# V-CTRIP FORENSIC SANDBOX v1.0.0\x1b[0m');
+            term.writeln('This environment is strictly for evidence analysis.');
+            term.writeln('All activities are logged to the central audit system.');
+            term.writeln('\x1b[33mCAUTION:\x1b[0m Do not execute malware without isolation confirmed.');
         } else if (command === 'clear') {
             term.clear();
         } else if (command === '') {
